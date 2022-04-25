@@ -1,5 +1,5 @@
 package com.example.login;
-
+//      Thato adds a comment
         import androidx.annotation.NonNull;
         import androidx.appcompat.app.AppCompatActivity;
         import androidx.core.content.ContextCompat;
