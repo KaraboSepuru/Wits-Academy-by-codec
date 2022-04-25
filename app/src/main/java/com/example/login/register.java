@@ -1,6 +1,6 @@
 package com.example.login;
-
-import androidx.annotation.NonNull;
+//      Thato adds a comment
+        import androidx.annotation.NonNull;
         import androidx.appcompat.app.AppCompatActivity;
         import androidx.core.content.ContextCompat;
 
@@ -23,16 +23,16 @@ import androidx.annotation.NonNull;
         import com.google.firebase.database.FirebaseDatabase;
 
 public class register extends AppCompatActivity {
-    private EditText eRegEmail;
-    private EditText eRegPassword;
-    private Button btnRegister;
+    EditText eRegEmail;
+    EditText eRegPassword;
+    TextView tvLoginHere;
 
-    private TextView tvLoginHere;
+    Button btnRegister;
 
-    private RadioGroup radioGroup;
-    private RadioButton radioButton;
+    RadioGroup radioGroup;
+    RadioButton radioButton;
 
-    private FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,9 +80,9 @@ public class register extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        User user = new User(password,email);
+                        User user = new User(occupation,password,email);
 
-                        FirebaseDatabase.getInstance().getReference(occupation)
+                        FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
