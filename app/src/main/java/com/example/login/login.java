@@ -22,12 +22,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.regex.Pattern;
 
 public class login extends AppCompatActivity {
-    EditText eLoginEmail;
-    EditText eLoginPassword;
-    TextView tvRegisterHere;
-    Button btnLogin;
+    private EditText eLoginEmail;
+    private EditText eLoginPassword;
+    private Button btnLogin;
+    private TextView tvRegisterHere;
 
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
     private FirebaseUser user;
     private DatabaseReference reference;
     private String userID;
@@ -39,10 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.teal_700));
 
-
-
         mAuth= FirebaseAuth.getInstance();
-
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
@@ -53,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
-                if(userProfile.fullName.equals("Teacher")){
+                if(userProfile.getFullName().equals("Teacher")){
                     isTeacher = true;
-                }else if (userProfile.fullName.equals("Student")){
+                }else if (userProfile.getFullEmail().equals("Student")){
                     isTeacher = false;
                 }else{
                     Toast.makeText(MainActivity.this, "Dont know if student or teacher, line 55 in mainActivity", Toast.LENGTH_LONG).show();
@@ -65,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this, "Somthing happend", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Something happened", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -120,10 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
-
-    //I added this comment
     protected void onStart(){
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
