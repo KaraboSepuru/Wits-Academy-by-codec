@@ -15,12 +15,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class addModule extends AppCompatActivity {
 
-    EditText modName;
-    EditText modCode;
-    EditText modTeach;
-    Button createMod;
-    FirebaseAuth mAuth;
-    DatabaseReference databaseReference;
+    protected EditText modName;
+    protected EditText modCode;
+    protected EditText modTeach;
+    protected Button createMod;
+    protected FirebaseAuth mAuth;
+    protected DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,52 +57,11 @@ public class addModule extends AppCompatActivity {
         }else if(TextUtils.isEmpty(mTeach)){
             modTeach.setError("Instructors name cannot be empty");
             modTeach.requestFocus();
-        }else{
+        }else {
             databaseReference = FirebaseDatabase.getInstance().getReference().child("Courses");
             module Module = new module(mName, mCode, mTeach);
             databaseReference.push().setValue(Module);
             Toast.makeText(addModule.this, "Course created", Toast.LENGTH_SHORT).show();
-         }
-
-
-        /*
-        else{
-            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        User user = new User(occupation,password,email);
-
-                        FirebaseDatabase.getInstance().getReference("Users")
-                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    if(occupation.equals("Teacher")){
-                                        Toast.makeText(register.this,"Teacher's account registered successfully",Toast.LENGTH_SHORT).show();
-                                    }else{
-                                        Toast.makeText(register.this,"Student's account registered successfully",Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    startActivity(new Intent(register.this,login.class));
-                                }else{
-                                    Toast.makeText(register.this,"Registration Error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-
-
-                    }else{
-                        Toast.makeText(register.this,"Registration Error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-            });
-         */
-
-
-
-
+        }
     }
 }

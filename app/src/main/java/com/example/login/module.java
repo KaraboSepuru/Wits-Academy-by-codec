@@ -1,7 +1,7 @@
 package com.example.login;
 
 public class module {
-    String modName, modCode, modTeacher;
+    private String modName, modCode, modTeacher;
 
     module (){
 

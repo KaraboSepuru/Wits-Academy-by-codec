@@ -1,6 +1,6 @@
 package com.example.login;
 
-        import androidx.annotation.NonNull;
+import androidx.annotation.NonNull;
         import androidx.appcompat.app.AppCompatActivity;
         import androidx.core.content.ContextCompat;
 
@@ -23,16 +23,16 @@ package com.example.login;
         import com.google.firebase.database.FirebaseDatabase;
 
 public class register extends AppCompatActivity {
-    EditText eRegEmail;
-    EditText eRegPassword;
-    TextView tvLoginHere;
+    private EditText eRegEmail;
+    private EditText eRegPassword;
+    private Button btnRegister;
 
-    Button btnRegister;
+    private TextView tvLoginHere;
 
-    RadioGroup radioGroup;
-    RadioButton radioButton;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
 
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
