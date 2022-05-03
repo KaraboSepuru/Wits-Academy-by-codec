@@ -1,8 +1,8 @@
 package com.example.login;
-// this is thapelo's first comment
-//ddddhhdjjdjd
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,6 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,29 +18,23 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Pattern;
 
 public class login extends AppCompatActivity {
-    EditText eLoginEmail;
-    EditText eLoginPassword;
-    TextView tvRegisterHere;
-    Button btnLogin;
+    private EditText eLoginEmail;
+    private EditText eLoginPassword;
+    private Button btnLogin;
+    private TextView tvRegisterHere;
 
-    RadioGroup radioGroup;
-    RadioButton radioButton;
+    private FirebaseAuth mAuth;
 
-    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getWindow().setStatusBarColor(ContextCompat.getColor(login.this, R.color.teal_700));
 
-        radioGroup = findViewById(R.id.radioGroup1);
 
         eLoginEmail=findViewById(R.id.etLoginEmail);
         eLoginPassword=findViewById(R.id.etLoginPass);
@@ -59,20 +51,11 @@ public class login extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed()
-    {
-    }
-
     private void loginUser() {
-
-        int radioID = radioGroup.getCheckedRadioButtonId();
-        radioButton = findViewById(radioID);
-
-        String occupation = radioButton.getText().toString();//Subject to change
-
         String email=eLoginEmail.getText().toString();
+        email = email.trim();
         String password=eLoginPassword.getText().toString();
+        password = password.trim();
 
         if(TextUtils.isEmpty(email)){
             eLoginEmail.setError("Email cannot be empty");
@@ -86,39 +69,8 @@ public class login extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-
-                        FirebaseDatabase.getInstance().getReference()
-                                .child(occupation)
-                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .child("email").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                String confirmemail;
-                                try {
-                                    confirmemail = snapshot.getValue(String.class).toString().trim();
-                                }
-                                catch(Exception e) {
-                                    confirmemail="";
-                                }
-
-                                if(email.equals(confirmemail)){
-                                    if(occupation.equals("Teacher")){
-                                        startActivity(new Intent(login.this,TeacherCourses.class).putExtra("activity","login"));//Go to the teachers home page
-                                    }else if(occupation.equals("Student")){
-                                        startActivity(new Intent(login.this,Student_Dashboard.class));//Go the student homepage
-                                    }
-                                }else{
-                                    Toast.makeText(login.this,"No "+occupation+"'s account with those details",Toast.LENGTH_SHORT).show();
-
-                                }
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
+                        Toast.makeText(login.this,"User logged in successfully",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(login.this,MainActivity.class));
                     }else{
                         Toast.makeText(login.this,"Log in error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
