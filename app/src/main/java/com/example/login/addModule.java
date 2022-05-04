@@ -61,7 +61,7 @@ public class addModule extends AppCompatActivity {
             databaseReference = FirebaseDatabase.getInstance().getReference().child("Courses");
             module Module = new module(mName, mCode, mTeach);
             databaseReference.push().setValue(Module);
-            Toast.makeText(addModule.this, "Course created", Toast.LENGTH_SHORT).show();
+            Toast.makeText(addModule.this, "Course created successfully", Toast.LENGTH_SHORT).show();
         }
     }
 }
