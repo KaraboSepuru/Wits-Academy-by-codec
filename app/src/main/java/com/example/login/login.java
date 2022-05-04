@@ -57,6 +57,7 @@ public class login extends AppCompatActivity {
         String password=eLoginPassword.getText().toString();
         password = password.trim();
 
+        //checking email and input
         if(TextUtils.isEmpty(email)){
             eLoginEmail.setError("Email cannot be empty");
             eLoginEmail.requestFocus();
@@ -72,7 +73,7 @@ public class login extends AppCompatActivity {
                         Toast.makeText(login.this,"User logged in successfully",Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(login.this,MainActivity.class));
                     }else{
-                        Toast.makeText(login.this,"Log in error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(login.this,"Log in error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();//it is too show errors and error types should they arise
                     }
                 }
             });
