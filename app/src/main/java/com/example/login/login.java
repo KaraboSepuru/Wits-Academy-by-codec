@@ -84,25 +84,24 @@ public class login extends AppCompatActivity {
                     if(task.isSuccessful()){
 
                         FirebaseDatabase.getInstance().getReference()
-                                .child("Users")
+                                .child(occupation)
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .child("occupation").addValueEventListener(new ValueEventListener() {
+                                .child("email").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                String occupationComp;
+                                String confirmemail;
                                 try {
-                                    occupationComp = snapshot.getValue(String.class).toString().trim();
+                                    confirmemail = snapshot.getValue(String.class).toString().trim();
                                 }
                                 catch(Exception e) {
-                                    occupationComp="";
+                                    confirmemail="";
                                 }
 
-                                Toast.makeText(login.this,occupation,Toast.LENGTH_SHORT).show();
-                                if(occupation.equals(occupationComp)){
+                                if(email.equals(confirmemail)){
                                     if(occupation.equals("Teacher")){
-                                        startActivity(new Intent(login.this,MainActivity.class));//Go to the teachers home page
+                                        startActivity(new Intent(login.this,TeacherCourses.class));//Go to the teachers home page
                                     }else if(occupation.equals("Student")){
-                                        startActivity(new Intent(login.this,Student_Homepage.class));//Go the student homepage
+                                        startActivity(new Intent(login.this,Student_Dashboard.class));//Go the student homepage
                                     }
                                 }else{
                                     Toast.makeText(login.this,"No "+occupation+"'s account with those details",Toast.LENGTH_SHORT).show();
@@ -116,9 +115,6 @@ public class login extends AppCompatActivity {
 
                             }
                         });
-
-                        /*Toast.makeText(login.this,"User logged in successfully",Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(login.this,MainActivity.class));*/
                     }else{
                         Toast.makeText(login.this,"Log in error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
