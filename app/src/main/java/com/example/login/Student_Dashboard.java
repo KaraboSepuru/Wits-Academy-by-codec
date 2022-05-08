@@ -53,9 +53,9 @@ public class Student_Dashboard extends AppCompatActivity {
 
         FirebaseRecyclerOptions<module> options =
                 new FirebaseRecyclerOptions.Builder<module>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Courses"), module.class)//.orderByChild("modName").equalTo("APHY8010")
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("All Courses"), module.class)//.orderByChild("modName").equalTo("APHY8010")
                         .build();
-        mainAdapter = new Adapter_View_AllCourses(options,getApplicationContext());
+        mainAdapter = new Adapter_View_AllCourses(options,getApplicationContext(),"");
         recyclerView.setAdapter(mainAdapter);
 
     }

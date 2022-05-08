@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Random;
 
-public class Adapter_View_AllCourses extends FirebaseRecyclerAdapter<module, Adapter_View_AllCourses.myViewHolder> {
+public class Student_cart_adapter extends FirebaseRecyclerAdapter<module, Student_cart_adapter.myViewHolder> {
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
@@ -26,11 +26,9 @@ public class Adapter_View_AllCourses extends FirebaseRecyclerAdapter<module, Ada
      * @param options
      */
     Context context;
-    String which;
-    public Adapter_View_AllCourses(@NonNull FirebaseRecyclerOptions<module> options, Context context,String which) {
+    public Student_cart_adapter(@NonNull FirebaseRecyclerOptions<module> options, Context context) {
         super(options);
         this.context=context;
-        this.which=which;
     }
 
     @Override
@@ -71,23 +69,13 @@ public class Adapter_View_AllCourses extends FirebaseRecyclerAdapter<module, Ada
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(which=="edit_course"){
-                    Intent intent=new Intent(context,TeacherCourse_content.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("course_name",holder.name.getText().toString());
-                    intent.putExtra("course_teacher",holder.email.getText().toString());
-                    intent.putExtra("course_code",holder.course.getText().toString());
-                    intent.putExtra("course_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                    context.startActivity(intent);
-                }else{
-                    Intent intent=new Intent(context,CourseContent.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("course_name",holder.name.getText().toString());
-                    intent.putExtra("course_teacher",holder.email.getText().toString());
-                    intent.putExtra("course_code",holder.course.getText().toString());
-                    intent.putExtra("course_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                    context.startActivity(intent);
-                }
+                Intent intent=new Intent(context,CourseContent.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("course_name",holder.name.getText().toString());
+                intent.putExtra("course_teacher",holder.email.getText().toString());
+                intent.putExtra("course_code",holder.course.getText().toString());
+                intent.putExtra("course_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                context.startActivity(intent);
             }
         });
 

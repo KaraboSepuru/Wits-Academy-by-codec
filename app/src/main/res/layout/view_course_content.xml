@@ -68,22 +68,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Like"
-            android:background="@color/white"
-            android:textStyle="bold"/>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Subscribe"
             android:textStyle="bold"
-            android:background="@color/white"
+            android:id="@+id/subscribe"
+            android:background="@color/teal_200"
             />
     </LinearLayout>
 
     <LinearLayout
+        android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">

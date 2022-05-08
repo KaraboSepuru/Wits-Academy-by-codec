@@ -2,15 +2,23 @@ package com.example.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class StudentCourses extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
+    RecyclerView recyclerView;
+    Student_cart_adapter mainAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +45,27 @@ public class StudentCourses extends AppCompatActivity {
             }
         });
 
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerview_student_courses);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        FirebaseRecyclerOptions<module> options =
+                new FirebaseRecyclerOptions.Builder<module>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Enrol").child(FirebaseAuth.getInstance().getCurrentUser().getUid()), module.class)//.orderByChild("modName").equalTo("APHY8010")
+                        .build();
+        mainAdapter = new Student_cart_adapter(options,getApplicationContext());
+        recyclerView.setAdapter(mainAdapter);
+
+
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        mainAdapter.startListening();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mainAdapter.stopListening();
     }
 }

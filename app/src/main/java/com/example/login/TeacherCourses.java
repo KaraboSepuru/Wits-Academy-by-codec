@@ -48,9 +48,10 @@ public class TeacherCourses extends AppCompatActivity {
 
         FirebaseRecyclerOptions<module> options =
                 new FirebaseRecyclerOptions.Builder<module>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Courses"), module.class)//.orderByChild("modName").equalTo("APHY8010")
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Group by teachers")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()), module.class)//.orderByChild("modName").equalTo("APHY8010")
                         .build();
-        mainAdapter = new Adapter_View_AllCourses(options,getApplicationContext());
+        mainAdapter = new Adapter_View_AllCourses(options,getApplicationContext(),"edit_course");
         recyclerView.setAdapter(mainAdapter);
     }
 
