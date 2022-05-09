@@ -2,25 +2,27 @@ package com.example.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 public class addModule extends AppCompatActivity {
 
-    protected EditText modName;
-    protected EditText modCode;
-    protected EditText modTeach;
-    protected Button createMod;
-    protected FirebaseAuth mAuth;
-    protected DatabaseReference databaseReference;
+    EditText modName;
+    EditText modCode;
+    EditText modTeach;
+    Button createMod;
+    FirebaseAuth mAuth;
+    ImageButton modPic;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class addModule extends AppCompatActivity {
         modCode = findViewById(R.id.moduleCode);
         modTeach = findViewById(R.id.moduleTName);
         createMod = findViewById(R.id.createCourse);
-
+        modPic = findViewById(R.id.modulePic);
         mAuth=FirebaseAuth.getInstance();
 
         createMod.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +49,9 @@ public class addModule extends AppCompatActivity {
         String mName = modName.getText().toString().trim();
         String mCode = modCode.getText().toString().trim();
         String mTeach = modTeach.getText().toString().trim();
+        ImageButton mPic = modPic;
+
+
 
         if(TextUtils.isEmpty(mName)){
             modName.setError("Course name cannot be empty");
@@ -57,11 +62,52 @@ public class addModule extends AppCompatActivity {
         }else if(TextUtils.isEmpty(mTeach)){
             modTeach.setError("Instructors name cannot be empty");
             modTeach.requestFocus();
-        }else {
+        }else{
             databaseReference = FirebaseDatabase.getInstance().getReference().child("Courses");
-            module Module = new module(mName, mCode, mTeach);
+            module Module = new module(mName, mCode, mTeach, mPic);
             databaseReference.push().setValue(Module);
-            Toast.makeText(addModule.this, "Course created successfully", Toast.LENGTH_SHORT).show();
-        }
+            Toast.makeText(addModule.this, "Course created", Toast.LENGTH_SHORT).show();
+         }
+
+
+        /*
+        else{
+            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        User user = new User(occupation,password,email);
+
+                        FirebaseDatabase.getInstance().getReference("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    if(occupation.equals("Teacher")){
+                                        Toast.makeText(register.this,"Teacher's account registered successfully",Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(register.this,"Student's account registered successfully",Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    startActivity(new Intent(register.this,login.class));
+                                }else{
+                                    Toast.makeText(register.this,"Registration Error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+
+                    }else{
+                        Toast.makeText(register.this,"Registration Error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            });
+         */
+
+
+
+
     }
 }

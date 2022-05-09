@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 }else if (userProfile.getFullEmail().equals("Student")){
                     isTeacher = false;
                 }else{
-                    Toast.makeText(MainActivity.this, "Dont know if student or teacher, line 55 in mainActivity", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Dont know if student or teacher, line 61 in mainActivity", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -88,32 +88,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_options, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.addModule:
-                if (isTeacher){
-                    startActivity(new Intent(this,addModule.class));
-                }else{
-                    Toast.makeText(this, "You Are Not Authorised to access this Feature", Toast.LENGTH_SHORT).show();
-                }
-                return true;
-            case R.id.logoutOPT:
-                startActivity(new Intent(MainActivity.this,login.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (!isTeacher){
+            startActivity(new Intent(this,teacherLayout.class));
         }
+
 
     }
 
