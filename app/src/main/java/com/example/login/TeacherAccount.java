@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -30,47 +31,11 @@ public class TeacherAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_account);
 
-        bottomNavigationView=findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.teacher_account);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.teacher_courses:
-                        startActivity(new Intent(TeacherAccount.this,TeacherCourses.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.add_module:
-                        startActivity(new Intent(TeacherAccount.this,Teacher_New_Module.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.teacher_account:
-                        return true;
-                }
-                return false;
-            }
-        });
+        //Create navigation bar
+        createnavigationbar();
 
-        FirebaseDatabase.getInstance().getReference()
-                .child("Teacher")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User teacher=snapshot.getValue(User.class);
-
-                        initialemail=teacher.getEmail();
-                        initialpass=teacher.getPassword();
-
-                        teacher_email.setText(initialemail);
-                        teacher_pass.setText(initialpass);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(TeacherAccount.this,"Couldnt retrieve user information.",Toast.LENGTH_SHORT).show();
-                    }
-                });
+        //Get initial email and password
+        getinitialEmailPass();
 
         teacher_email=findViewById(R.id.update_teacher_email);
         teacher_pass=findViewById(R.id.update_teacher_password);
@@ -91,6 +56,74 @@ public class TeacherAccount extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user==null){
+            startActivity(new Intent(TeacherAccount.this,login.class));
+        }
+    }
+
+    private void getinitialEmailPass(){
+        FirebaseDatabase.getInstance().getReference()
+                .child("Teacher")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User teacher=snapshot.getValue(User.class);
+
+                        initialemail=teacher.getEmail();
+                        initialpass=teacher.getPassword();
+
+                        teacher_email.setText(initialemail);
+                        teacher_pass.setText(initialpass);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(TeacherAccount.this,"Couldnt retrieve user information.",Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void createnavigationbar(){
+        bottomNavigationView=findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.teacher_account);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.teacher_courses:
+                        startActivity(new Intent(TeacherAccount.this,TeacherCourses.class).putExtra("activity","account"));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.add_module:
+                        startActivity(new Intent(TeacherAccount.this,Teacher_New_Module.class).putExtra("activity","account"));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.teacher_account:
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        /*
+        if(getIntent().getStringExtra("activity")=="courses"){
+            startActivity(new Intent(this, TeacherCourses.class));
+        }else{
+            startActivity(new Intent(this, Teacher_New_Module.class));
+        }
+        finish();
+         */
     }
 
     private void updatedetails() {

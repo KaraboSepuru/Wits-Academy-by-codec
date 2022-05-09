@@ -9,15 +9,19 @@
     tools:context=".StudentCourses">
 
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_height="680dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="0dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:padding="10dp"

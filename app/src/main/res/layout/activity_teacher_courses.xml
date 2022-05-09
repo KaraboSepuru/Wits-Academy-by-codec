@@ -7,13 +7,17 @@
     android:background="@color/white"
     tools:context=".TeacherCourses">
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recylerview_teacher_courses"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        />
+        android:layout_height="680dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recylerview_teacher_courses"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            />
+    </LinearLayout>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

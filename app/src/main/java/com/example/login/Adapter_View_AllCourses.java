@@ -35,9 +35,16 @@ public class Adapter_View_AllCourses extends FirebaseRecyclerAdapter<module, Ada
 
     @Override
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull module model) {
-        holder.name.setText(model.getModCode());
-        holder.course.setText(model.getModName());
-        holder.email.setText(model.getModTeacher());
+        if(which=="mycourses"){
+            holder.name.setText(model.getModName());
+            holder.course.setText(model.getModCode());
+            holder.email.setText(model.getModTeacher());
+        }else{
+            holder.name.setText(model.getModCode());
+            holder.course.setText(model.getModName());
+            holder.email.setText(model.getModTeacher());
+        }
+
 
         Random rand = new Random();
         int randomNum = rand.nextInt((7 - 0) + 1) + 0;
@@ -85,6 +92,7 @@ public class Adapter_View_AllCourses extends FirebaseRecyclerAdapter<module, Ada
                     intent.putExtra("course_name",holder.name.getText().toString());
                     intent.putExtra("course_teacher",holder.email.getText().toString());
                     intent.putExtra("course_code",holder.course.getText().toString());
+                    intent.putExtra("dashboard_or_mycourses","subscribe");
                     intent.putExtra("course_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
                     context.startActivity(intent);
                 }

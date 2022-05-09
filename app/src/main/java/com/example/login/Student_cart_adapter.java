@@ -33,8 +33,8 @@ public class Student_cart_adapter extends FirebaseRecyclerAdapter<module, Studen
 
     @Override
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull module model) {
-        holder.name.setText(model.getModCode());
-        holder.course.setText(model.getModName());
+        holder.name.setText(model.getModName());
+        holder.course.setText(model.getModCode());
         holder.email.setText(model.getModTeacher());
 
         Random rand = new Random();
@@ -74,6 +74,7 @@ public class Student_cart_adapter extends FirebaseRecyclerAdapter<module, Studen
                 intent.putExtra("course_name",holder.name.getText().toString());
                 intent.putExtra("course_teacher",holder.email.getText().toString());
                 intent.putExtra("course_code",holder.course.getText().toString());
+                intent.putExtra("dashboard_or_mycourses","subscribed");
                 intent.putExtra("course_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
                 context.startActivity(intent);
             }

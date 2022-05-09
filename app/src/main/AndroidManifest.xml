@@ -15,12 +15,6 @@
             android:name=".TeacherCourse_content"
             android:exported="false" />
         <activity
-            android:name=".PdfContent"
-            android:exported="false" />
-        <activity
-            android:name=".WeekContent"
-            android:exported="false" />
-        <activity
             android:name=".TeacherAccount"
             android:exported="false" />
         <activity

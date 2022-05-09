@@ -41,10 +41,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherCourse_content extends AppCompatActivity {
-    TextView coursename,courseinst;
+    TextView coursename,courseinst,refreshpage;
     EditText coursedesc,editText;
     String coursename1,courseinstructor,coursecode1,courseid;
-    Button uploadpdf,choosepdf;
+    Button uploadpdf,choosepdf,updatedesc,goback;
     RecyclerView recyclerView;
     All_pdf_adapter mainAdapter;
     @Override
@@ -58,13 +58,56 @@ public class TeacherCourse_content extends AppCompatActivity {
         editText=findViewById(R.id.pdf_name);
         choosepdf=findViewById(R.id.choose_pdf_from_file);
         uploadpdf=findViewById(R.id.upload_pdf);
+        updatedesc=findViewById(R.id.update_description);
+        goback=findViewById(R.id.go_back);
+        refreshpage=findViewById(R.id.refresh_course);
+
+        goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(TeacherCourse_content.this,TeacherCourses.class));
+            }
+        });
+
 
         coursename1=getIntent().getStringExtra("course_name");
         courseinstructor=getIntent().getStringExtra("course_teacher");
         coursecode1=getIntent().getStringExtra("course_code");
 
+        refreshpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(TeacherCourse_content.this,TeacherCourse_content.class);
+                intent.putExtra("course_name",coursename1);
+                intent.putExtra("course_teacher",courseinstructor);
+                intent.putExtra("course_code",coursecode1);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         courseinst.setText(courseinstructor);
         coursename.setText(coursecode1);
+
+        FirebaseDatabase.getInstance().getReference("Course Description").child(coursename1)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        coursedesc.setText(snapshot.getValue(String.class));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(TeacherCourse_content.this, "Couldnt retrieve course description", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        updatedesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateDescription();
+            }
+        });
 
         uploadpdf.setEnabled(false);
         choosepdf.setOnClickListener(new View.OnClickListener() {
@@ -76,17 +119,40 @@ public class TeacherCourse_content extends AppCompatActivity {
 
         recyclerView = (RecyclerView)findViewById(R.id.course_pdfs);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        recyclerView.setItemAnimator(null);
         retrievepdf();
     }
+
+    private void updateDescription() {
+        if(coursedesc.getText().toString()!=null){
+            FirebaseDatabase.getInstance().getReference("Course Description").child(coursename1).setValue(coursedesc.getText().toString())
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(TeacherCourse_content.this, "Successfully updated course", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }else{
+            FirebaseDatabase.getInstance().getReference("Course Description").child(coursename1).setValue("None")
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(TeacherCourse_content.this, "Successfully updated course", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+
+
+    }
+
     @Override
     public void onBackPressed()
     {
-        startActivity(new Intent(this, TeacherCourses.class));
-        finish();
+
     }
 
     private void retrievepdf() {
+        recyclerView.setItemAnimator(null);
         FirebaseRecyclerOptions<uploadpdf> options =
                 new FirebaseRecyclerOptions.Builder<uploadpdf>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Course Material").child(coursename1), uploadpdf.class)//.orderByChild("modName").equalTo("APHY8010")
@@ -143,6 +209,7 @@ public class TeacherCourse_content extends AppCompatActivity {
                         editText.setText("");
                         Toast.makeText(TeacherCourse_content.this, "File Uploaded", Toast.LENGTH_SHORT).show();
 
+                        retrievepdf();
 
                     }
                 }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {

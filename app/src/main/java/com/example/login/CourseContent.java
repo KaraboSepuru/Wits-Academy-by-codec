@@ -3,6 +3,8 @@ package com.example.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,16 +13,23 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class CourseContent extends AppCompatActivity {
     TextView coursename,coursedesc,courseinst,coursecode;
-    Button subscribe;
+    Button subscribe,gotocourses;
     Boolean subscribed=false;
     String coursename1,courseinstructor,coursecode1,courseid;
+    RecyclerView recyclerView;
+    All_pdf_adapter mainAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +40,7 @@ public class CourseContent extends AppCompatActivity {
         coursename=findViewById(R.id.course_name);
         coursedesc=findViewById(R.id.course_description);
         subscribe=findViewById(R.id.subscribe);
+        gotocourses=findViewById(R.id.enrolled_courses);
 
         coursename1=getIntent().getStringExtra("course_name");
         courseinstructor=getIntent().getStringExtra("course_teacher");
@@ -38,14 +48,32 @@ public class CourseContent extends AppCompatActivity {
         courseid=getIntent().getStringExtra("course_id");
 
         courseinst.setText(courseinstructor);
-        coursename.setText(coursename1);
+        coursename.setText(coursecode1);
 
-        coursedesc.setText("The Computer Science curriculum includes a software design component that is aligned with the\n" +
-                "recommendations prescribed by the ACM and IEEE organisations1\n" +
-                ". This alignment is different\n" +
-                "from what would be covered in a typical software engineering degree as it is more focused on\n" +
-                "those aspects of software engineering deemed essential to a computer scientist.");
+        recyclerView = (RecyclerView)findViewById(R.id.show_pdfs);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        retrievepdf();
+
+
+        FirebaseDatabase.getInstance().getReference("Course Description").child(coursename1)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        coursedesc.setText(snapshot.getValue(String.class));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(CourseContent.this, "Couldnt load course description", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        Toast.makeText(CourseContent.this,"//"+getIntent().getStringExtra("dashboard_or_mycourses")+"//" , Toast.LENGTH_SHORT).show();
+        if(getIntent().getStringExtra("dashboard_or_mycourses").equals("subscribed")){
+            subscribe.setEnabled(false);
+            subscribe.setText("Subscribed");
+        }
         subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,11 +100,42 @@ public class CourseContent extends AppCompatActivity {
                 }
             }
         });
+
+        gotocourses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CourseContent.this,StudentCourses.class));
+            }
+        });
+
     }
     @Override
     public void onBackPressed()
     {
-        startActivity(new Intent(this, Student_Dashboard.class));
-        finish();
+
+    }
+
+    private void retrievepdf() {
+        FirebaseRecyclerOptions<uploadpdf> options =
+                new FirebaseRecyclerOptions.Builder<uploadpdf>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Course Material").child(coursename1), uploadpdf.class)//.orderByChild("modName").equalTo("APHY8010")
+                        .build();
+        mainAdapter = new All_pdf_adapter(options,getApplicationContext());
+        recyclerView.setAdapter(mainAdapter);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        mainAdapter.startListening();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user==null){
+            startActivity(new Intent(CourseContent.this,login.class));
+        }
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mainAdapter.stopListening();
     }
 }

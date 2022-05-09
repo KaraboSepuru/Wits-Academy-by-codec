@@ -59,13 +59,17 @@ public class login extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed()
+    {
+    }
+
     private void loginUser() {
 
         int radioID = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioID);
 
         String occupation = radioButton.getText().toString();//Subject to change
-        Toast.makeText(login.this,occupation,Toast.LENGTH_SHORT).show();
 
         String email=eLoginEmail.getText().toString();
         String password=eLoginPassword.getText().toString();
@@ -99,7 +103,7 @@ public class login extends AppCompatActivity {
 
                                 if(email.equals(confirmemail)){
                                     if(occupation.equals("Teacher")){
-                                        startActivity(new Intent(login.this,TeacherCourses.class));//Go to the teachers home page
+                                        startActivity(new Intent(login.this,TeacherCourses.class).putExtra("activity","login"));//Go to the teachers home page
                                     }else if(occupation.equals("Student")){
                                         startActivity(new Intent(login.this,Student_Dashboard.class));//Go the student homepage
                                     }

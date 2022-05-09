@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,11 +38,11 @@ public class StudentAccount extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.dashboard:
-                        startActivity(new Intent(StudentAccount.this,Student_Dashboard.class));
+                        startActivity(new Intent(StudentAccount.this,Student_Dashboard.class).putExtra("activity","account"));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.student_courses:
-                        startActivity(new Intent(StudentAccount.this,StudentCourses.class));
+                        startActivity(new Intent(StudentAccount.this,StudentCourses.class).putExtra("activity","account"));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.student_account:
@@ -128,4 +129,32 @@ public class StudentAccount extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user==null){
+            startActivity(new Intent(StudentAccount.this,login.class));
+        }
+    }
+
+
+    @Override
+    public void onBackPressed()
+    {
+        /*
+        Intent intent=getIntent();
+        String inte=intent.getStringExtra("acivity");
+        Toast.makeText(this, inte, Toast.LENGTH_SHORT).show();
+        if(inte.equals("dashboard")){
+            startActivity(new Intent(this, Student_Dashboard.class));
+            bottomNavigationView.setSelectedItemId(R.id.dashboard);
+        }else if(inte.equals("courses")){
+            startActivity(new Intent(this, StudentAccount.class));
+            bottomNavigationView.setSelectedItemId(R.id.student_account);
+        }
+        finish();*/
+    }
+
 }

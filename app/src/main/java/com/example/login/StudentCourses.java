@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,13 +32,13 @@ public class StudentCourses extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.dashboard:
-                        startActivity(new Intent(StudentCourses.this,Student_Dashboard.class));
+                        startActivity(new Intent(StudentCourses.this,Student_Dashboard.class).putExtra("activity","courses"));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.student_courses:
                         return true;
                     case R.id.student_account:
-                        startActivity(new Intent(StudentCourses.this,StudentAccount.class));
+                        startActivity(new Intent(StudentCourses.this,StudentAccount.class).putExtra("activity","courses"));
                         overridePendingTransition(0,0);
                         return true;
                 }
@@ -47,6 +48,7 @@ public class StudentCourses extends AppCompatActivity {
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview_student_courses);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(null);
 
         FirebaseRecyclerOptions<module> options =
                 new FirebaseRecyclerOptions.Builder<module>()
@@ -62,10 +64,32 @@ public class StudentCourses extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         mainAdapter.startListening();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user==null){
+            startActivity(new Intent(StudentCourses.this,login.class));
+        }
     }
     @Override
     protected void onStop() {
         super.onStop();
         mainAdapter.stopListening();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        /*
+        Intent intent=getIntent();
+        String inte=intent.getStringExtra("acivity");
+        Toast.makeText(this, inte, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, getIntent().getStringExtra("acivity"), Toast.LENGTH_SHORT).show();
+        if(inte.equals("dashboard")){
+            startActivity(new Intent(this, Student_Dashboard.class));
+            bottomNavigationView.setSelectedItemId(R.id.dashboard);
+        }else if(inte.equals("account")){
+            startActivity(new Intent(this, StudentAccount.class));
+            bottomNavigationView.setSelectedItemId(R.id.student_account);
+        }
+        finish();*/
     }
 }

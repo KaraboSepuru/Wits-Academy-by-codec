@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,7 +32,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class Teacher_New_Module extends AppCompatActivity {
-    private static final int PICK_IMAGE_REQUEST=1;
     EditText modName;
     EditText modCode;
     EditText modTeach,imagename;
@@ -50,13 +50,13 @@ public class Teacher_New_Module extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.teacher_courses:
-                    startActivity(new Intent(Teacher_New_Module.this,TeacherCourses.class));
+                    startActivity(new Intent(Teacher_New_Module.this,TeacherCourses.class).putExtra("activity","new_module"));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.add_module:
                     return true;
                 case R.id.teacher_account:
-                    startActivity(new Intent(Teacher_New_Module.this,TeacherAccount.class));
+                    startActivity(new Intent(Teacher_New_Module.this,TeacherAccount.class).putExtra("activity","new_module"));
                     overridePendingTransition(0,0);
                     return true;
             }
@@ -81,6 +81,18 @@ public class Teacher_New_Module extends AppCompatActivity {
         });
 
         
+    }
+    @Override
+    public void onBackPressed()
+    {
+        /*
+        if(getIntent().getStringExtra("activity")=="courses"){
+            startActivity(new Intent(this, TeacherCourses.class));
+        }else{
+            startActivity(new Intent(this, TeacherAccount.class));
+        }
+        finish();
+         */
     }
 
     public void createModule(){
@@ -107,6 +119,14 @@ public class Teacher_New_Module extends AppCompatActivity {
             module Module1 = new module(mName, mCode, mTeach);
             databaseReference1.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(mCode).setValue(Module1);
 
+        }
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user==null){
+            startActivity(new Intent(Teacher_New_Module.this,login.class));
         }
     }
 }

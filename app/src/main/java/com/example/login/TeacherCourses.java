@@ -31,11 +31,11 @@ public class TeacherCourses extends AppCompatActivity {
                 case R.id.teacher_courses:
                     return true;
                 case R.id.add_module:
-                    startActivity(new Intent(TeacherCourses.this,Teacher_New_Module.class));
+                    startActivity(new Intent(TeacherCourses.this,Teacher_New_Module.class).putExtra("activity","courses"));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.teacher_account:
-                    startActivity(new Intent(TeacherCourses.this,TeacherAccount.class));
+                    startActivity(new Intent(TeacherCourses.this,TeacherAccount.class).putExtra("activity","courses"));
                     overridePendingTransition(0,0);
                     return true;
             }
@@ -68,5 +68,10 @@ public class TeacherCourses extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mainAdapter.stopListening();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
     }
 }
