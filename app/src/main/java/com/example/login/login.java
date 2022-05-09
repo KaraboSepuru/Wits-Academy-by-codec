@@ -74,6 +74,7 @@ public class login extends AppCompatActivity {
         String email=eLoginEmail.getText().toString();
         String password=eLoginPassword.getText().toString();
 
+        //checking email and input
         if(TextUtils.isEmpty(email)){
             eLoginEmail.setError("Email cannot be empty");
             eLoginEmail.requestFocus();
@@ -120,7 +121,7 @@ public class login extends AppCompatActivity {
                             }
                         });
                     }else{
-                        Toast.makeText(login.this,"Log in error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(login.this,"Log in error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();//it is too show errors and error types should they arise
                     }
                 }
             });
