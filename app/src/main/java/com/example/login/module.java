@@ -8,8 +8,8 @@ public class module {
     }
 
     module(String modCode, String modName, String modTeacher){
-        this.modCode = modCode;
-        this.modName = modName;
+        this.modCode = modName;
+        this.modName = modCode;
         this.modTeacher = modTeacher;
     }
 
