@@ -69,7 +69,7 @@ public class CourseContent extends AppCompatActivity {
                     }
                 });
 
-        Toast.makeText(CourseContent.this,"//"+getIntent().getStringExtra("dashboard_or_mycourses")+"//" , Toast.LENGTH_SHORT).show();
+
         if(getIntent().getStringExtra("dashboard_or_mycourses").equals("subscribed")){
             subscribe.setEnabled(false);
             subscribe.setText("Subscribed");
