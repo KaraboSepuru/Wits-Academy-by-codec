@@ -2,17 +2,18 @@ package com.example.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 public class addModule extends AppCompatActivity {
 
     EditText modName;
@@ -20,6 +21,7 @@ public class addModule extends AppCompatActivity {
     EditText modTeach;
     Button createMod;
     FirebaseAuth mAuth;
+    ImageButton modPic;
     DatabaseReference databaseReference;
 
     @Override
@@ -31,7 +33,7 @@ public class addModule extends AppCompatActivity {
         modCode = findViewById(R.id.moduleCode);
         modTeach = findViewById(R.id.moduleTName);
         createMod = findViewById(R.id.createCourse);
-
+        modPic = findViewById(R.id.modulePic);
         mAuth=FirebaseAuth.getInstance();
 
         createMod.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +49,9 @@ public class addModule extends AppCompatActivity {
         String mName = modName.getText().toString().trim();
         String mCode = modCode.getText().toString().trim();
         String mTeach = modTeach.getText().toString().trim();
+        ImageButton mPic = modPic;
+
+
 
         if(TextUtils.isEmpty(mName)){
             modName.setError("Course name cannot be empty");
@@ -59,7 +64,7 @@ public class addModule extends AppCompatActivity {
             modTeach.requestFocus();
         }else{
             databaseReference = FirebaseDatabase.getInstance().getReference().child("Courses");
-            module Module = new module(mName, mCode, mTeach);
+            module Module = new module(mName, mCode, mTeach, mPic);
             databaseReference.push().setValue(Module);
             Toast.makeText(addModule.this, "Course created", Toast.LENGTH_SHORT).show();
          }

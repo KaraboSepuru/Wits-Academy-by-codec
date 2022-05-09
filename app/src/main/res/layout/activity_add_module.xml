@@ -7,13 +7,25 @@
     android:background="@color/white"
     tools:context=".addModule">
 
+
     <TextView
+        android:id="@+id/intro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Creating a Course!"
         android:layout_centerHorizontal="true"
         android:textSize="30dp"
         android:textColor="@color/teal_700"/>
+
+    <ImageButton
+        android:layout_width="380dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/intro"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/modulePic"
+        android:background="@drawable/ic_baseline_upload"
+        android:layout_marginTop="40dp"/>
+
 
     <EditText
         android:id="@+id/moduleName"

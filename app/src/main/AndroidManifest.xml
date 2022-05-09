@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Login">
         <activity
+            android:name=".teacherLayout"
+            android:exported="false"
+            android:parentActivityName=".login"/>
+        <activity
             android:name=".addModule"
             android:exported="false" />
         <activity
@@ -19,29 +23,16 @@
             android:exported="false" />
         <activity
             android:name=".login"
-<<<<<<< HEAD
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-=======
-            android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
->>>>>>> 9e3c7bcc2b553213dcc7a6d05f0756ebb4806cad
         <activity
             android:name=".MainActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
     </application>
 
 </manifest>
