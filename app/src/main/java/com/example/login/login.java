@@ -1,5 +1,7 @@
 package com.example.login;
-
+// this is thapelo's first comment
+//this is Thato's first comment
+//ddddhhdjjdjd
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -42,13 +43,12 @@ public class login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        radioGroup = findViewById(R.id.radioGroup1);//binds all input information to allow spave for image view
+        radioGroup = findViewById(R.id.radioGroup1);
 
-        eLoginEmail=findViewById(R.id.etLoginEmail);//
+        eLoginEmail=findViewById(R.id.etLoginEmail);
         eLoginPassword=findViewById(R.id.etLoginPass);
         tvRegisterHere=findViewById(R.id.tvRegisterHere);
         btnLogin=findViewById(R.id.btnLogin);
-
 
         mAuth=FirebaseAuth.getInstance();
 
@@ -58,8 +58,6 @@ public class login extends AppCompatActivity {
         tvRegisterHere.setOnClickListener(view ->{
             startActivity(new Intent(login.this,register.class));
         });
-
-        findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -68,9 +66,9 @@ public class login extends AppCompatActivity {
     }
 
     private void loginUser() {
-        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
-        int radioID = radioGroup.getCheckedRadioButtonId();//see if user is student or teacher
-        radioButton = findViewById(radioID);//user type found
+
+        int radioID = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioID);
 
         String occupation = radioButton.getText().toString();//Subject to change
 
@@ -79,18 +77,18 @@ public class login extends AppCompatActivity {
 
         //checking email and input
         if(TextUtils.isEmpty(email)){
-            //the elseif caters for when there no email information
             eLoginEmail.setError("Email cannot be empty");
-            eLoginEmail.requestFocus();//focuses on the email interface waiting for input from user
-        }//the elseif caters for when there no password information
+            eLoginEmail.requestFocus();
+        }
         else if(TextUtils.isEmpty(password)){
             eLoginPassword.setError("Password cannot be empty");
-            eLoginPassword.requestFocus();//focuses on the password state waiting for user to provide such of password
+            eLoginPassword.requestFocus();
         }else{
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+
                         FirebaseDatabase.getInstance().getReference()
                                 .child(occupation)
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -107,9 +105,9 @@ public class login extends AppCompatActivity {
 
                                 if(email.equals(confirmemail)){
                                     if(occupation.equals("Teacher")){
-                                        startActivity(new Intent(login.this,TeacherCourses.class).putExtra("activity","login"));//Go to the teachers home page once approved
+                                        startActivity(new Intent(login.this,TeacherCourses.class).putExtra("activity","login"));//Go to the teachers home page
                                     }else if(occupation.equals("Student")){
-                                        startActivity(new Intent(login.this,Student_Dashboard.class));//Go the student homepage once validated
+                                        startActivity(new Intent(login.this,Student_Dashboard.class));//Go the student homepage
                                     }
                                 }else{
                                     Toast.makeText(login.this,"No "+occupation+"'s account with those details",Toast.LENGTH_SHORT).show();
