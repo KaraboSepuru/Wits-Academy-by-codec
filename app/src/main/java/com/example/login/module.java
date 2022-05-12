@@ -1,15 +1,17 @@
 package com.example.login;
 
 public class module {
-    String modName, modCode, modTeacher;
-
+    private String modName, modCode, modTeacher;
+// hello world
+//    ijfnvodfoiwdm
     module (){
+
 
     }
 
     module(String modCode, String modName, String modTeacher){
-        this.modCode = modCode;
-        this.modName = modName;
+        this.modCode = modName;
+        this.modName = modCode;
         this.modTeacher = modTeacher;
     }
 
