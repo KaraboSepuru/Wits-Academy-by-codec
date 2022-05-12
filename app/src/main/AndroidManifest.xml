@@ -3,7 +3,7 @@
     package="com.example.login">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/back"
@@ -12,25 +12,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Login">
         <activity
-            android:name=".addModule"
+            android:name=".TeacherCourse_content"
+            android:exported="false" />
+        <activity
+            android:name=".TeacherAccount"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_New_Module"
+            android:exported="false" />
+        <activity
+            android:name=".TeacherCourses"
+            android:exported="false" />
+        <activity
+            android:name=".StudentAccount"
+            android:exported="false" />
+        <activity
+            android:name=".StudentCourses"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Dashboard"
+            android:exported="false" />
+        <activity
+            android:name=".CourseContent"
             android:exported="false" />
         <activity
             android:name=".register"
             android:exported="false" />
         <activity
             android:name=".login"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"/>
-
     </application>
 
 </manifest>
