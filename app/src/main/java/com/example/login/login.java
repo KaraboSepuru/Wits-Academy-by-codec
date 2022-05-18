@@ -29,15 +29,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.regex.Pattern;
 
 public class login extends AppCompatActivity {
+
     private EditText eLoginEmail;
     private EditText eLoginPassword;
     private Button btnLogin;
     private TextView tvRegisterHere;
-
     private FirebaseAuth mAuth;
-
     private RadioGroup radioGroup;
     private RadioButton radioButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
