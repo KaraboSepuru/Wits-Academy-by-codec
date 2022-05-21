@@ -1,28 +1,32 @@
 package com.example.login;
 
-import android.widget.ImageButton;
+import android.widget.RatingBar;
 
 public class module {
-    String modName, modCode, modTeacher;
-    ImageButton picture;
-
+    private String modName, modCode, modTeacher;
+    private float ratingNum;
+// hello world
+//    ijfnvodfoiwdm
     module (){
+
 
     }
 
-    module(String modCode, String modName, String modTeacher, ImageButton picture){
-        this.picture = picture;
-        this.modCode = modCode;
-        this.modName = modName;
+    module(String modCode, String modName, String modTeacher, float ratingNum){
+        this.modCode = modName;
+        this.modName = modCode;
         this.modTeacher = modTeacher;
+        this.ratingNum = ratingNum;
+    }
+
+    public float getRatingNum(){return ratingNum;}
+
+    public void setRatingNum(int num){
+        ratingNum = num;
     }
 
     public String getModName() {
         return modName;
-    }
-
-    public ImageButton getPicture() {
-        return picture;
     }
 
     public String getModCode() {
@@ -35,10 +39,6 @@ public class module {
 
     public void setModName(String modName) {
         this.modName = modName;
-    }
-
-    public void setPicture(ImageButton picture) {
-        this.picture = picture;
     }
 
     public void setModCode(String modCode) {
