@@ -58,6 +58,8 @@ public class login extends AppCompatActivity {
         tvRegisterHere.setOnClickListener(view ->{
             startActivity(new Intent(login.this,register.class));
         });
+
+        findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
     }
 
     @Override

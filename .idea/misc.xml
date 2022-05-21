@@ -3,19 +3,49 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/2360871/StudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_login.xml" value="0.16058763931104356" />
         <entry key="..\:/Users/27748/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_add_module.xml" value="0.25" />
         <entry key="..\:/Users/27748/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/27748/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/27748/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/Users/27748/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/list_item.xml" value="0.1" />
         <entry key="..\:/Users/27748/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/menu/menu_options.xml" value="0.264" />
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.217" />
-        <entry key="app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.217" />
-        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.217" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.36770833333333336" />
-        <entry key="app/src/main/res/layout/activity_register.xml" value="0.1286231884057971" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/drawable-v24/search_b.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/drawable-v24/search_icon.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/drawable/search_view_bg.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/drawable/selector.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_add_module.xml" value="0.1640625" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_course_content.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_course_content1.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_pdf_content.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_register.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_student_account.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_student_course_content.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_student_courses.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_student_dashboard.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_student_mycourses_content.xml" value="0.165625" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_teacher_account.xml" value="0.1640625" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_teacher_course_content.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_teacher_courses.xml" value="0.1640625" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_teacher_new_module.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_view_course.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/activity_week_content.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/image_rc.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/search_view_bg.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/student_enrolled_course_pdf.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/view_course_content.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/layout/week_model.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/menu/menu_navigation.xml" value="0.17239583333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/menu/menu_options.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/menu/search.xml" value="0.1796875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/menu/teacher_menu.xml" value="0.28378378378378377" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_student_courses.xml" value="0.3401268115942029" />
+        <entry key="app/src/main/res/layout/activity_teacher_course_content.xml" value="0.2074074074074074" />
+        <entry key="app/src/main/res/layout/student_enrolled_course_pdf.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/teacher_course_pdf.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/view_course_content.xml" value="0.33" />
       </map>
     </option>
   </component>
