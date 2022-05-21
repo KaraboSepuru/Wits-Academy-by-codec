@@ -13,7 +13,7 @@
 Sprint Review with client on Monday 13h00
 Items covered:
   *Different interfaces for lecturer and student
-  *Uploading of PDFs
+  *Uploading of PDFS
   *Creating courses
   *Bieng able to view available courses
   *Bieng able to search for courses
