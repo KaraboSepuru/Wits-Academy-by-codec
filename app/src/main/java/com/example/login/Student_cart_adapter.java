@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ public class Student_cart_adapter extends FirebaseRecyclerAdapter<module, Studen
         holder.name.setText(model.getModName());
         holder.course.setText(model.getModCode());
         holder.email.setText(model.getModTeacher());
+        holder.ratingBar.setRating(model.getRatingNum());
 
         Random rand = new Random();
         int randomNum = rand.nextInt((7 - 0) + 1) + 0;
@@ -92,8 +94,12 @@ public class Student_cart_adapter extends FirebaseRecyclerAdapter<module, Studen
     class myViewHolder extends RecyclerView.ViewHolder{
         TextView name,course,email;
         ImageView imageView;
+        RatingBar ratingBar;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
+
+
+            ratingBar = (RatingBar)itemView.findViewById(R.id.ratingBar);
             name = (TextView)itemView.findViewById(R.id.nametext2);
             course = (TextView)itemView.findViewById(R.id.coursetext2);
             email = (TextView)itemView.findViewById(R.id.emailtext2);

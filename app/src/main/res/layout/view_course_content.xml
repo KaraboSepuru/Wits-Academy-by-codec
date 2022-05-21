@@ -50,13 +50,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="222dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="35dp"
                         android:text="Course Overview"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
                         android:textSize="20dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"/>
+                        android:textStyle="bold" />
                     <TextView
                         android:padding="5dp"
                         android:layout_width="wrap_content"

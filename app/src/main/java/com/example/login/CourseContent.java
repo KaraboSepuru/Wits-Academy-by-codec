@@ -27,6 +27,7 @@ public class CourseContent extends AppCompatActivity {
     TextView coursename,coursedesc,courseinst,coursecode;
     Button subscribe,gotocourses;
     Boolean subscribed=false;
+    int ratingNum;
     String coursename1,courseinstructor,coursecode1,courseid;
     RecyclerView recyclerView;
     All_pdf_adapter mainAdapter;
@@ -41,6 +42,7 @@ public class CourseContent extends AppCompatActivity {
         coursedesc=findViewById(R.id.course_description);
         subscribe=findViewById(R.id.subscribe);
         gotocourses=findViewById(R.id.enrolled_courses);
+
 
         coursename1=getIntent().getStringExtra("course_name");
         courseinstructor=getIntent().getStringExtra("course_teacher");
@@ -79,7 +81,7 @@ public class CourseContent extends AppCompatActivity {
             public void onClick(View view) {
                 if(!subscribed){
 
-                    module module=new module(coursename1,coursecode1,courseinstructor);
+                    module module=new module(coursename1,coursecode1,courseinstructor,ratingNum);
                     FirebaseDatabase.getInstance().getReference("Enrol")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .child(coursecode1)

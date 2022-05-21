@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,10 +40,12 @@ public class Adapter_View_AllCourses extends FirebaseRecyclerAdapter<module, Ada
             holder.name.setText(model.getModName());
             holder.course.setText(model.getModCode());
             holder.email.setText(model.getModTeacher());
+            holder.ratingBar.setRating(model.getRatingNum());
         }else{
             holder.name.setText(model.getModCode());
             holder.course.setText(model.getModName());
             holder.email.setText(model.getModTeacher());
+            holder.ratingBar.setRating(model.getRatingNum());
         }
 
 
@@ -111,8 +114,10 @@ public class Adapter_View_AllCourses extends FirebaseRecyclerAdapter<module, Ada
     class myViewHolder extends RecyclerView.ViewHolder{
         TextView name,course,email;
         ImageView imageView;
+        RatingBar ratingBar;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
+            ratingBar = (RatingBar)itemView.findViewById(R.id.ratingBar);
             name = (TextView)itemView.findViewById(R.id.nametext2);
             course = (TextView)itemView.findViewById(R.id.coursetext2);
             email = (TextView)itemView.findViewById(R.id.emailtext2);
