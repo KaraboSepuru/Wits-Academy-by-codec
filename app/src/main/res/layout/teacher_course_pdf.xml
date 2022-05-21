@@ -9,13 +9,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:id="@+id/student_enrolled_course_pdfname"
+            android:id="@+id/teacher_course_pdfname"
             android:text="Pdf Name"
             android:textColor="@color/black"
             android:textSize="20dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/teacher_course_pdf_delete"
+            android:text="X"
+            android:background="@android:color/transparent"
+            android:textColor="@color/grey"
+            android:textSize="20dp"
+            android:layout_gravity="right"/>
     </com.google.android.material.card.MaterialCardView>
 
 

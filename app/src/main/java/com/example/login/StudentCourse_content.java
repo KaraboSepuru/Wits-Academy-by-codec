@@ -23,7 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class CourseContent extends AppCompatActivity {
+public class StudentCourse_content extends AppCompatActivity {
     TextView coursename,coursedesc,courseinst,coursecode;
     Button subscribe,gotocourses;
     Boolean subscribed=false;
@@ -33,8 +33,8 @@ public class CourseContent extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_course_content);
-        getWindow().setStatusBarColor(ContextCompat.getColor(CourseContent.this, R.color.teal_700));
+        setContentView(R.layout.activity_student_course_content);
+        getWindow().setStatusBarColor(ContextCompat.getColor(StudentCourse_content.this, R.color.teal_700));
 
         courseinst=findViewById(R.id.instructor_name);
         coursename=findViewById(R.id.course_name);
@@ -65,7 +65,7 @@ public class CourseContent extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(CourseContent.this, "Couldnt load course description", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StudentCourse_content.this, "Couldnt load course description", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -88,7 +88,7 @@ public class CourseContent extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(CourseContent.this,"Successfully subscribed to the course",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(StudentCourse_content.this,"Successfully subscribed to the course",Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -96,7 +96,7 @@ public class CourseContent extends AppCompatActivity {
                     subscribe.setText("Subscribed");
                     subscribed=true;
                 }else{
-                    Toast.makeText(CourseContent.this,"Already subscribed to the course",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StudentCourse_content.this,"Already subscribed to the course",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -104,7 +104,7 @@ public class CourseContent extends AppCompatActivity {
         gotocourses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CourseContent.this,StudentCourses.class));
+                startActivity(new Intent(StudentCourse_content.this,StudentCourses.class));
             }
         });
 
@@ -120,7 +120,7 @@ public class CourseContent extends AppCompatActivity {
                 new FirebaseRecyclerOptions.Builder<uploadpdf>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Course Material").child(coursename1), uploadpdf.class)//.orderByChild("modName").equalTo("APHY8010")
                         .build();
-        mainAdapter = new All_pdf_adapter(options,getApplicationContext());
+        mainAdapter = new All_pdf_adapter(options,getApplicationContext(), false);
         recyclerView.setAdapter(mainAdapter);
     }
 
@@ -130,7 +130,7 @@ public class CourseContent extends AppCompatActivity {
         mainAdapter.startListening();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user==null){
-            startActivity(new Intent(CourseContent.this,login.class));
+            startActivity(new Intent(StudentCourse_content.this,login.class));
         }
     }
     @Override

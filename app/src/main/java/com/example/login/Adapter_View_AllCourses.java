@@ -87,7 +87,7 @@ public class Adapter_View_AllCourses extends FirebaseRecyclerAdapter<module, Ada
                     intent.putExtra("course_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
                     context.startActivity(intent);
                 }else{
-                    Intent intent=new Intent(context,CourseContent.class);
+                    Intent intent=new Intent(context, StudentCourse_content.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("course_name",holder.name.getText().toString());
                     intent.putExtra("course_teacher",holder.email.getText().toString());
