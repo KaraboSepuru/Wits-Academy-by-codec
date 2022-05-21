@@ -60,7 +60,6 @@ public class TeacherCourse_content extends AppCompatActivity {
         uploadpdf=findViewById(R.id.upload_pdf);
         updatedesc=findViewById(R.id.update_description);
         goback=findViewById(R.id.go_back);
-        refreshpage=findViewById(R.id.refresh_course);
 
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,18 +72,6 @@ public class TeacherCourse_content extends AppCompatActivity {
         coursename1=getIntent().getStringExtra("course_name");
         courseinstructor=getIntent().getStringExtra("course_teacher");
         coursecode1=getIntent().getStringExtra("course_code");
-
-        refreshpage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(TeacherCourse_content.this,TeacherCourse_content.class);
-                intent.putExtra("course_name",coursename1);
-                intent.putExtra("course_teacher",courseinstructor);
-                intent.putExtra("course_code",coursecode1);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         courseinst.setText(courseinstructor);
         coursename.setText(coursecode1);
@@ -157,7 +144,7 @@ public class TeacherCourse_content extends AppCompatActivity {
                 new FirebaseRecyclerOptions.Builder<uploadpdf>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Course Material").child(coursename1), uploadpdf.class)//.orderByChild("modName").equalTo("APHY8010")
                         .build();
-        mainAdapter = new All_pdf_adapter(options,getApplicationContext());
+        mainAdapter = new All_pdf_adapter(options,getApplicationContext(), true);
         recyclerView.setAdapter(mainAdapter);
     }
 
@@ -179,7 +166,14 @@ public class TeacherCourse_content extends AppCompatActivity {
             uploadpdf.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     uploadPDFFileFirebase(data.getData());
+                    Intent intent=new Intent(TeacherCourse_content.this,TeacherCourse_content.class);
+                    intent.putExtra("course_name",coursename1);
+                    intent.putExtra("course_teacher",courseinstructor);
+                    intent.putExtra("course_code",coursecode1);
+                    startActivity(intent);
+                    finish();
                 }
             });
         }else{

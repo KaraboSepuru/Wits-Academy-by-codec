@@ -33,7 +33,7 @@
             android:name=".Student_Dashboard"
             android:exported="false" />
         <activity
-            android:name=".CourseContent"
+            android:name=".StudentCourse_content"
             android:exported="false" />
         <activity
             android:name=".register"
