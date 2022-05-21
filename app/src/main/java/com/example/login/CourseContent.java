@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,8 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class CourseContent extends AppCompatActivity {
+    BottomNavigationView bottomNavigationView;
     TextView coursename,coursedesc,courseinst,coursecode;
-    Button subscribe,gotocourses;
+    Button subscribe;
     Boolean subscribed=false;
     String coursename1,courseinstructor,coursecode1,courseid;
     RecyclerView recyclerView;
@@ -36,11 +39,14 @@ public class CourseContent extends AppCompatActivity {
         setContentView(R.layout.view_course_content);
         getWindow().setStatusBarColor(ContextCompat.getColor(CourseContent.this, R.color.teal_700));
 
+        //bottom navigation bar
+        createnavigationbar();
+        //
+
         courseinst=findViewById(R.id.instructor_name);
         coursename=findViewById(R.id.course_name);
         coursedesc=findViewById(R.id.course_description);
         subscribe=findViewById(R.id.subscribe);
-        gotocourses=findViewById(R.id.enrolled_courses);
 
         coursename1=getIntent().getStringExtra("course_name");
         courseinstructor=getIntent().getStringExtra("course_teacher");
@@ -101,18 +107,36 @@ public class CourseContent extends AppCompatActivity {
             }
         });
 
-        gotocourses.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(CourseContent.this,StudentCourses.class));
-            }
-        });
-
     }
     @Override
     public void onBackPressed()
     {
 
+    }
+
+    private void createnavigationbar(){
+        bottomNavigationView=findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelected(false);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.dashboard:
+                        startActivity(new Intent(CourseContent.this,Student_Dashboard.class).putExtra("activity","account"));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.student_courses:
+                        startActivity(new Intent(CourseContent.this,StudentCourses.class).putExtra("activity","account"));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.student_account:
+                        startActivity(new Intent(CourseContent.this,StudentAccount.class).putExtra("activity","account"));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void retrievepdf() {

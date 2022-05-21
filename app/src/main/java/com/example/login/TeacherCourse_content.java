@@ -163,7 +163,7 @@ public class TeacherCourse_content extends AppCompatActivity {
 
     private void selectPDF() {
         Intent intent=new Intent();
-        intent.setType("application/pdf");
+        intent.setType("*/*");
         intent.setAction(intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"PDF FILE SELECt"),12);
 
@@ -209,7 +209,7 @@ public class TeacherCourse_content extends AppCompatActivity {
                         editText.setText("");
                         Toast.makeText(TeacherCourse_content.this, "File Uploaded", Toast.LENGTH_SHORT).show();
 
-                        retrievepdf();
+
 
                     }
                 }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -219,6 +219,8 @@ public class TeacherCourse_content extends AppCompatActivity {
                         progressDialog.setMessage("File Uploading..."+(int)progress+"%");
                     }
                 });
+
+        retrievepdf();
 
 
     }

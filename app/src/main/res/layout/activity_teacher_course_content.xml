@@ -34,106 +34,112 @@
     </LinearLayout>
 
     <LinearLayout
-        android:padding="10dp"
-        android:layout_marginTop="140dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="140dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
         <androidx.cardview.widget.CardView
-            android:padding="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Course Overview"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textStyle="bold" />
+
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_course_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/edit_course_desc"
-                        android:hint="Course Description"/>
+                        android:hint="Course Description" />
                 </ScrollView>
 
                 <Button
+                    android:id="@+id/update_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Update Description"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginBottom="6dp"
                     android:background="@color/teal_200"
-                    android:textColor="@color/black"
-                    android:id="@+id/update_description"
-                    />
+                    android:text="Update Description"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:paddingTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:text="Course Content"
-            android:textStyle="bold"
+            android:textColor="@color/black"
             android:textSize="20dp"
-            android:textColor="@color/black"/>
+            android:textStyle="bold" />
+
         <TextView
-            android:paddingTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:text="Lecture Notes"
-            android:textSize="15dp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+
         <LinearLayout
-            android:paddingTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/view_image_before_upload">
+            android:layout_below="@+id/view_image_before_upload"
+            android:paddingTop="10dp">
 
             <Button
+                android:id="@+id/choose_pdf_from_file"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose"
                 android:layout_marginLeft="15dp"
-                android:textColor="@color/grey"
-                android:id="@+id/choose_pdf_from_file"
-                />
+                android:text="Choose"
+                android:textColor="@color/grey" />
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pdf_name"
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:hint="Enter file name"
-                android:textSize="15dp"
-                android:id="@+id/pdf_name"/>
+                android:textSize="15dp" />
 
             <Button
+                android:id="@+id/upload_pdf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Upload"
-                android:textColor="@color/grey"
-                android:id="@+id/upload_pdf"/>
+                android:textColor="@color/grey" />
 
         </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+
             <androidx.recyclerview.widget.RecyclerView
-                android:paddingTop="10dp"
+                android:id="@+id/course_pdfs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/course_pdfs"/>
+                android:paddingTop="10dp" />
         </ScrollView>
 
     </LinearLayout>

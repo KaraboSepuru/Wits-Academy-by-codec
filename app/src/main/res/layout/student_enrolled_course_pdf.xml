@@ -2,21 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="5dp">
+    android:layout_height="60dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:orientation="horizontal"
+    android:background="@drawable/materialbg">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="30dp">
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:id="@+id/student_enrolled_course_pdfname"
-            android:text="Pdf Name"
-            android:textColor="@color/black"
-            android:textSize="20dp"/>
-    </com.google.android.material.card.MaterialCardView>
+    <ImageView
+        android:id="@+id/dummy_image"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="13dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/pdf"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_marginTop="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/student_enrolled_course_pdfname"
+        android:text="Pdf Name"
+        android:textStyle="italic"
+        android:textSize="20sp"/>
 
 
 </LinearLayout>

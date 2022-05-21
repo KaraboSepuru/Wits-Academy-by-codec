@@ -41,7 +41,7 @@ public class All_pdf_adapter extends FirebaseRecyclerAdapter<uploadpdf, All_pdf_
             public void onClick(View view) {
                     Intent intent=new Intent(Intent.ACTION_VIEW);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setType("application/pdf");
+                    intent.setType("*/*");
                     intent.setData(Uri.parse(model.getPdfurl()));
                     context.startActivity(intent);
                     context.startActivity(intent);
