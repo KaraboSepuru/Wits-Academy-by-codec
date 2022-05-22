@@ -112,7 +112,7 @@ public class StudentCourse_content extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-
+        finish();
     }
 
     private void retrievepdf() {
