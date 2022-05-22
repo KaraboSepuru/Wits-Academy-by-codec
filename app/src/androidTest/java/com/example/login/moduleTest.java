@@ -9,13 +9,11 @@ public class moduleTest {
 
     @Test
     public void testIsModCodCorrect(){
-
-        Assert.assertEquals(testing.getModName(),"STAT2006");
-
+        Assert.assertEquals(testing.getModCode(),"STAT2006");
     }
     @Test
     public void testIsModNameCorrect(){
-        Assert.assertEquals(testing.getModCode(),"Mathematical Statistics 2");
+        Assert.assertEquals(testing.getModName(),"Mathematical Statistics 2");
     }
     @Test
     public void testIsModTeacherCorrect(){
