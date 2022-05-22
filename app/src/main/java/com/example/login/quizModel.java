@@ -7,7 +7,9 @@ public class quizModel {
     private String opt3;
     private String opt4;
     private String ans;
+    public quizModel(){
 
+    }
     public quizModel(String question, String opt1, String opt2, String opt3, String opt4, String ans) {
         this.question = question;
         this.opt1 = opt1;
