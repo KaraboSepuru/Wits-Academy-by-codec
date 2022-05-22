@@ -135,7 +135,7 @@ public class TeacherCourse_content extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-
+        finish();
     }
 
     private void retrievepdf() {
