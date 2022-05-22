@@ -40,7 +40,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/go_back"
@@ -102,7 +102,9 @@
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/course_overview"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/course_overview" />
 
         <TextView
             android:id="@+id/lecture_notes"
@@ -112,6 +114,9 @@
             android:text="Lecture Notes"
             android:textColor="@color/black"
             android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintTop_toBottomOf="@+id/course_content_tv"/>
 
         <LinearLayout
@@ -149,12 +154,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/course_pdfs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            app:layout_constrainedHeight="true"
             android:paddingTop="10dp"
-            android:scrollbars="vertical"
-            app:layoutManager="LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/upload_content_layout"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/upload_content_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -167,20 +171,20 @@
         android:background="@color/teal_200"
         android:text="Go to my courses"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        app:itemBackground="@color/white"
-        app:itemIconTint="@drawable/selector2"
-        app:itemTextColor="@drawable/selector2"
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottom_navigation"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        app:itemBackground="@color/white"-->
+<!--        app:itemIconTint="@drawable/selector2"-->
+<!--        app:itemTextColor="@drawable/selector2"-->
 
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu_navigation" />
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:menu="@menu/menu_navigation" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
