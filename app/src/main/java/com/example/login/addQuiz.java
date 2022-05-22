@@ -1,5 +1,6 @@
 package com.example.login;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,7 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -17,9 +22,6 @@ public class addQuiz extends AppCompatActivity {
 
     private TextView questionNumberTV, questionTV;
     private Button option1Btn, option2Btn, option3Btn, option4Btn;
-    //public ArrayList<quizModel> quizModelArrayList;
-    Random random;
-    int currentScore= 0, questionAttempted =1, currentPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,23 +36,11 @@ public class addQuiz extends AppCompatActivity {
         option2Btn=findViewById(R.id.optTwoBtn);
         option3Btn=findViewById(R.id.optThreeBtn);
         option4Btn=findViewById(R.id.optFourBtn);
-       // ArrayList<quizModel> quizModelArrayList = getIntent().getParcelableArrayListExtra(quizModelArrayList, quizModel);
-        random=new Random();
-        //getQuizQuestion(quizModelArrayList);
-       // setDataToViews(currentPos);
 
 
 
     }
 
-    /*private void setDataToViews(int currentPos) {
-        quizModel options = FirebaseDatabase.getInstance().getReference().child("Questions").child("COMS1016").child("QuizOne");//.orderByChild("modName").equalTo("APHY8010")
 
-
-        questionTV.setText(options);
-
-        //questionTV.setText(quizModel.get(currentPos).getQuestion());
-
-    }*/
 
 }

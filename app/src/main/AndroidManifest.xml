@@ -13,8 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Login">
         <activity
-            android:name=".studentQuiz"
-            android:exported="false" />
+            android:name=".StudentPlayQuiz"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".createQuiz"
+            android:exported="false">
+
+        </activity>
         <activity
             android:name=".TeacherCourse_content"
             android:exported="false" />
@@ -44,13 +55,7 @@
             android:exported="false" />
         <activity
             android:name=".login"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"></activity>
     </application>
 
 </manifest>
