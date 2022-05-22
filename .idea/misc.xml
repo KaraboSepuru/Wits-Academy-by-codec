@@ -40,12 +40,14 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/menu/menu_options.xml" value="0.1796875" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/menu/search.xml" value="0.1796875" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/menu/teacher_menu.xml" value="0.28378378378378377" />
-        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_register.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_student_quiz.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_teacher_new_module.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/image_rc.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/student_enrolled_course_pdf.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/view_course_content.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_student_quiz.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_student_courses.xml" value="0.3401268115942029" />
+        <entry key="app/src/main/res/layout/activity_teacher_course_content.xml" value="0.2074074074074074" />
+        <entry key="app/src/main/res/layout/student_enrolled_course_pdf.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/teacher_course_pdf.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/view_course_content.xml" value="0.33" />
       </map>
     </option>
   </component>
