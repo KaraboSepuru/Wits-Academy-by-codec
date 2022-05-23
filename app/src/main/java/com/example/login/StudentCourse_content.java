@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class StudentCourse_content extends AppCompatActivity {
     TextView coursename,coursedesc,courseinst,coursecode;
-    Button subscribe,gotocourses;
+    Button subscribe,gotocourses, btn_take_quiz;
     Boolean subscribed=false;
     String coursename1,courseinstructor,coursecode1,courseid;
     RecyclerView recyclerView;
@@ -41,6 +41,7 @@ public class StudentCourse_content extends AppCompatActivity {
         coursedesc=findViewById(R.id.course_description);
         subscribe=findViewById(R.id.subscribe);
         gotocourses=findViewById(R.id.enrolled_courses);
+        btn_take_quiz = findViewById(R.id.btn_take_quiz);
 
         coursename1=getIntent().getStringExtra("course_name");
         courseinstructor=getIntent().getStringExtra("course_teacher");
@@ -106,6 +107,15 @@ public class StudentCourse_content extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(StudentCourse_content.this,StudentCourses.class));
+            }
+        });
+
+        btn_take_quiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(StudentCourse_content.this, StudentPlayQuiz.class);
+                intent.putExtra("course_code",coursename1) ;
+            startActivity(intent);
             }
         });
 
