@@ -52,6 +52,7 @@ public class StudentCourse_content extends AppCompatActivity {
 
         recyclerView = (RecyclerView)findViewById(R.id.show_pdfs);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(null);
 
         retrievepdf();
 
