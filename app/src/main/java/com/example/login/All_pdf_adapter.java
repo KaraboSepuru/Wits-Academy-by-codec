@@ -3,6 +3,7 @@ package com.example.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,16 @@ public class All_pdf_adapter extends FirebaseRecyclerAdapter<uploadpdf, All_pdf_
 
     }
 
+//    private void goToURL(String URI)
+//    {
+//        Intent intent=new Intent(Intent.ACTION_VIEW);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.setType("*/*");
+//        intent.setData(Uri.parse(URI));
+//        context.startActivity(intent);
+//        context.startActivity(intent);
+//    }
+
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -70,8 +81,10 @@ public class All_pdf_adapter extends FirebaseRecyclerAdapter<uploadpdf, All_pdf_
 
     class myViewHolder extends RecyclerView.ViewHolder{
         TextView pdfname;
+        ImageView pdf_image;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
+            pdf_image = (ImageView) itemView.findViewById(R.id.dummy_image);
             if (canDeleteItem) {
                 pdfname = (TextView) itemView.findViewById(R.id.teacher_course_pdfname);
             }
