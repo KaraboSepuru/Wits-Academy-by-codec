@@ -1,7 +1,10 @@
 package com.example.login;
 
+import android.widget.RatingBar;
+
 public class module {
     private String modName, modCode, modTeacher;
+    private float rating;
 // hello world
 //    ijfnvodfoiwdm
     module (){
@@ -9,10 +12,17 @@ public class module {
 
     }
 
-    module(String modCode, String modName, String modTeacher){
+    module(String modCode, String modName, String modTeacher, float rating){
         this.modCode = modName;
         this.modName = modCode;
         this.modTeacher = modTeacher;
+        this.rating = rating;
+    }
+
+    public float getRatingNum(){return rating;}
+
+    public void setRatingNum(int num){
+        this.rating = num;
     }
 
     public String getModName() {

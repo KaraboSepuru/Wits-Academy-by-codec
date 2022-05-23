@@ -111,12 +111,12 @@ public class Teacher_New_Module extends AppCompatActivity {
             modTeach.requestFocus();
         }else{
             databaseReference = FirebaseDatabase.getInstance().getReference().child("All Courses");
-            module Module = new module(mName, mCode, mTeach);
+            module Module = new module(mName, mCode, mTeach, 0);
             databaseReference.child(mCode).setValue(Module);
             Toast.makeText(Teacher_New_Module.this, "Course created", Toast.LENGTH_SHORT).show();
 
             databaseReference1 = FirebaseDatabase.getInstance().getReference().child("Group by teachers");
-            module Module1 = new module(mName, mCode, mTeach);
+            module Module1 = new module(mName, mCode, mTeach, 0);
             databaseReference1.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(mCode).setValue(Module1);
 
         }
