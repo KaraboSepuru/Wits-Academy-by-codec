@@ -71,10 +71,21 @@ public class TeacherCourse_content extends AppCompatActivity {
             }
         });
 
-
         coursename1=getIntent().getStringExtra("course_name");
         courseinstructor=getIntent().getStringExtra("course_teacher");
         coursecode1=getIntent().getStringExtra("course_code");
+
+        btn_add_quiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(TeacherCourse_content.this, createQuiz.class);
+                intent.putExtra("course_code",coursename1);
+                startActivity(intent);
+            }
+        });
+
+
+
 
         courseinst.setText(courseinstructor);
         coursename.setText(coursecode1);
@@ -134,6 +145,12 @@ public class TeacherCourse_content extends AppCompatActivity {
         retrieveFile();
     }
 
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+    }
+
     private void updateDescription() {
         if(coursedesc.getText().toString()!=null){
             FirebaseDatabase.getInstance().getReference("Course Description").child(coursename1).setValue(coursedesc.getText().toString())
@@ -159,7 +176,7 @@ public class TeacherCourse_content extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        finish();
+        startActivity(new Intent(TeacherCourse_content.this,TeacherCourses.class));
     }
 
     private void retrieveFile() {
