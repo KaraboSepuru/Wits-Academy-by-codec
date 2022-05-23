@@ -145,7 +145,7 @@ public class TeacherCourse_content extends AppCompatActivity {
                 new FirebaseRecyclerOptions.Builder<uploadpdf>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Course Material").child(coursename1), uploadpdf.class)//.orderByChild("modName").equalTo("APHY8010")
                         .build();
-        mainAdapter = new All_pdf_adapter(options,getApplicationContext(), true);
+        mainAdapter = new All_pdf_adapter(options,getApplicationContext(), this.getIntent(),true);
         recyclerView.setAdapter(mainAdapter);
     }
 
