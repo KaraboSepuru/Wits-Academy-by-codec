@@ -12,11 +12,11 @@
 
 Sprint Review with client on Monday 13h00
 Items covered:
-  * Different interfaces for lecturer and student
-  * Uploading of PDF's
-  * Creating courses
-  * Bieng able to view available courses
-  * Bieng able to search for courses
-  * Bieng able to subscribe for courses
-  * Making the UI more user friendly
-  * Advice and opinion of client and client satisfaction and possible changes that need to be made 
+  *Different interfaces for lecturer and student
+  *Uploading of PDFS
+  *Creating courses
+  *Bieng able to view available courses
+  *Bieng able to search for courses
+  *Bieng able to subscribe for courses
+  *Making the UI more user friendly
+  *Advice and opinion of client and client satisfaction and possible changes that need to be made 

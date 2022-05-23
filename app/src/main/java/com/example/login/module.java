@@ -9,8 +9,8 @@ public class module {
     }
 
     module(String modCode, String modName, String modTeacher){
-        this.modCode = modName;
-        this.modName = modCode;
+        this.modCode = modCode;
+        this.modName = modName;
         this.modTeacher = modTeacher;
     }
 
