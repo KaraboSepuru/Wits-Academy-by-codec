@@ -36,20 +36,22 @@ public class Adapter_View_AllCourses extends FirebaseRecyclerAdapter<module, Ada
 
     @Override
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull module model) {
+        Random rand = new Random();
+
         if(which=="mycourses"){
             holder.name.setText(model.getModName());
             holder.course.setText(model.getModCode());
             holder.email.setText(model.getModTeacher());
-            holder.ratingBar.setRating(model.getRatingNum());
+            holder.ratingBar.setRating(rand.nextInt((5 - 1) + 1) + 1);
+
         }else{
             holder.name.setText(model.getModCode());
             holder.course.setText(model.getModName());
             holder.email.setText(model.getModTeacher());
-            holder.ratingBar.setRating(model.getRatingNum());
+            holder.ratingBar.setRating(rand.nextInt((5 - 1) + 1) + 1);
         }
 
 
-        Random rand = new Random();
         int randomNum = rand.nextInt((7 - 0) + 1) + 0;
 
         switch (randomNum){
