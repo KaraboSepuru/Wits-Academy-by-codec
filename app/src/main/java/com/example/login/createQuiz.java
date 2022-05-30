@@ -44,18 +44,21 @@ public class createQuiz extends AppCompatActivity {
         addToList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String question =addQuestion.getText().toString();
-                String response = addResponse.getText().toString();
+                String question =addQuestion.getText().toString();//The quiz question that will be asked in the quiz
+                String response = addResponse.getText().toString();//the answer to the quiz questoin
                 System.out.println(response);
-                String option1 = addOpt1.getText().toString();
-                String option2 = addOpt2.getText().toString();
-                String option3 = addOpt3.getText().toString();
-                String option4 = addOpt4.getText().toString();
-                String qNumber = qNum.getText().toString();
+                //The 4 lines below are the quiz options that the user will see when the quiz runs
+                String option1 = addOpt1.getText().toString();//getting the first option and storing it in a string so it can be saved into the database
+                String option2 = addOpt2.getText().toString();//Adding the second option and ...
+                String option3 = addOpt3.getText().toString();//Adding the third optionand ...
+                String option4 = addOpt4.getText().toString();//Adding the fourth option and ...
+                String qNumber = qNum.getText().toString();//the question number
                 String coursecode=getIntent().getStringExtra("course_code");
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Questions").child(coursecode).child("QuizOne").child(qNumber);
-                quizModel QuizQ = new quizModel(question, option1, option2, option3, option4, response);
+                quizModel QuizQ = new quizModel(question, option1, option2, option3, option4, response);//Adding the quiz question to the database
                 databaseReference.setValue(QuizQ);
+
+                //the lines below are clearing the textview which were collecting the previous quiz data
                 addOpt1.getText().clear();
                 addOpt2.getText().clear();
                 addOpt3.getText().clear();
@@ -63,7 +66,7 @@ public class createQuiz extends AppCompatActivity {
                 addQuestion.getText().clear();
                 addResponse.getText().clear();
                 qNum.getText().clear();
-                Toast.makeText(createQuiz.this,"Question "+ qNumber +" Has been added",Toast.LENGTH_SHORT).show();
+                Toast.makeText(createQuiz.this,"Question "+ qNumber +" Has been added",Toast.LENGTH_SHORT).show();//Questoin succesfully added
 
 
             }
