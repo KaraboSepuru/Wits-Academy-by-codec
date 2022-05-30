@@ -1,5 +1,6 @@
 # Wits-Academy-by-codec
 
+[![codecov](https://codecov.io/gh/KaraboSepuru/Wits-Academy-by-codec/branch/main/graph/badge.svg?token=QGX4YFA0C6)](https://codecov.io/gh/KaraboSepuru/Wits-Academy-by-codec)
 ![CircleCI](https://img.shields.io/circleci/build/github/KaraboSepuru/Wits-Academy-by-codec?label=circle%20ci&logo=circle%20)
 ![CircleCI](https://img.shields.io/circleci/build/github/KaraboSepuru/Wits-Academy-by-codec)
 [![CircleCI](https://circleci.com/gh/KaraboSepuru/Wits-Academy-by-codec/tree/main.svg?style=svg)](https://circleci.com/gh/KaraboSepuru/Wits-Academy-by-codec/tree/main)
