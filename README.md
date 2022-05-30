@@ -9,7 +9,7 @@
 ![GitHub branch checks state](https://img.shields.io/github/checks-status/KaraboSepuru/Wits-Academy-by-codec/main?logo=github)
 ![GitHub branch checks state](https://img.shields.io/github/checks-status/KaraboSepuru/Wits-Academy-by-codec/main?label=testing)
 ![GitHub top language](https://img.shields.io/github/languages/top/KaraboSepuru/Wits-Academy-by-codec)
-
+https://img.shields.io/codecov/c/github/KaraboSepuru/Wits-Academy-by-codec?color=green&label=Code%20Coverage&logo=codecov&style=plastic
 
 Sprint Review with client on Monday 13h00
 Items covered:
