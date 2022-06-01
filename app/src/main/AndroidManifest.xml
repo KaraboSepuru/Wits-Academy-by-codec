@@ -16,6 +16,16 @@
             android:name=".announcement"
             android:exported="false" />
         <activity
+            android:name=".StudentPlayQuiz"
+            android:exported="false" >
+
+        </activity>
+        <activity
+            android:name=".createQuiz"
+            android:exported="false">
+
+        </activity>
+        <activity
             android:name=".TeacherCourse_content"
             android:exported="false" />
         <activity
@@ -37,8 +47,10 @@
             android:name=".Student_Dashboard"
             android:exported="false" />
         <activity
-            android:name=".CourseContent"
+            android:name=".StudentCourse_content"
             android:exported="false" />
+        <activity android:name=".studentStartQuiz"
+            android:exported="false"/>
         <activity
             android:name=".register"
             android:exported="false" />

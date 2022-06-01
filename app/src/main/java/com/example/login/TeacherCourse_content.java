@@ -2,21 +2,26 @@ package com.example.login;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,22 +36,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class TeacherCourse_content extends AppCompatActivity {
     TextView coursename,courseinst,refreshpage;
-    EditText coursedesc,editText;
+    EditText coursedesc, file_name;
     String coursename1,courseinstructor,coursecode1,courseid;
-    Button uploadpdf,choosepdf,updatedesc,goback,announcement;
+    Button uploadpdf,choosepdf,announcement;
+    Button updatedesc,goback, btn_add_file, btn_add_quiz, btn_upload, btn_choose_file;
     RecyclerView recyclerView;
     All_pdf_adapter mainAdapter;
+    ConstraintLayout cl_content;
+    LayoutInflater inflater;
+    View popupView;
+    PopupWindow popupWindow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,13 +59,12 @@ public class TeacherCourse_content extends AppCompatActivity {
         courseinst=findViewById(R.id.instructor_name);
         coursename=findViewById(R.id.course_name);
         coursedesc=findViewById(R.id.edit_course_desc);
-        editText=findViewById(R.id.pdf_name);
-        choosepdf=findViewById(R.id.choose_pdf_from_file);
-        uploadpdf=findViewById(R.id.upload_pdf);
+        btn_add_file = findViewById(R.id.btn_add_file);
+        btn_add_quiz = findViewById(R.id.btn_add_quiz);
+//        uploadpdf=findViewById(R.id.btn_add_quiz);
         updatedesc=findViewById(R.id.update_description);
         goback=findViewById(R.id.go_back);
         announcement = findViewById(R.id.btnAnnouncement);
-        refreshpage=findViewById(R.id.refresh_course);
 
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,22 +80,22 @@ public class TeacherCourse_content extends AppCompatActivity {
             }
         });
 
-
+        
         coursename1=getIntent().getStringExtra("course_name");
         courseinstructor=getIntent().getStringExtra("course_teacher");
         coursecode1=getIntent().getStringExtra("course_code");
 
-        refreshpage.setOnClickListener(new View.OnClickListener() {
+        btn_add_quiz.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(TeacherCourse_content.this,TeacherCourse_content.class);
-                intent.putExtra("course_name",coursename1);
-                intent.putExtra("course_teacher",courseinstructor);
-                intent.putExtra("course_code",coursecode1);
+            public void onClick(View v) {
+                Intent intent=new Intent(TeacherCourse_content.this, createQuiz.class);
+                intent.putExtra("course_code",coursename1);
                 startActivity(intent);
-                finish();
             }
         });
+
+
+
 
         courseinst.setText(courseinstructor);
         coursename.setText(coursecode1);
@@ -117,18 +120,45 @@ public class TeacherCourse_content extends AppCompatActivity {
             }
         });
 
-        uploadpdf.setEnabled(false);
-        choosepdf.setOnClickListener(new View.OnClickListener() {
+        cl_content = findViewById(R.id.cl_content);
+
+        inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        popupView = inflater.inflate(R.layout.popup_upload_content, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        popupWindow = new PopupWindow(popupView, width, height, focusable);
+        popupWindow.setHeight(1000);
+        popupWindow.setWidth(800);
+
+        btn_upload = popupView.findViewById(R.id.btn_upload);
+        btn_choose_file = popupView.findViewById(R.id.btn_choose);
+        file_name = popupView.findViewById(R.id.et_file_name);
+
+        btn_upload.setEnabled(false);
+        btn_add_file.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                selectPDF();
+                addFile();
             }
         });
+
+
 
         recyclerView = (RecyclerView)findViewById(R.id.course_pdfs);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(null);
-        retrievepdf();
+        retrieveFile();
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
     }
 
     private void updateDescription() {
@@ -156,24 +186,52 @@ public class TeacherCourse_content extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-
+        startActivity(new Intent(TeacherCourse_content.this,TeacherCourses.class));
     }
 
-    private void retrievepdf() {
+    private void retrieveFile() {
         recyclerView.setItemAnimator(null);
         FirebaseRecyclerOptions<uploadpdf> options =
                 new FirebaseRecyclerOptions.Builder<uploadpdf>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Course Material").child(coursename1), uploadpdf.class)//.orderByChild("modName").equalTo("APHY8010")
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Course Material").child(coursename1), uploadpdf.class)
                         .build();
-        mainAdapter = new All_pdf_adapter(options,getApplicationContext());
+        mainAdapter = new All_pdf_adapter(options,getApplicationContext(), this.getIntent(),true);
         recyclerView.setAdapter(mainAdapter);
     }
 
-    private void selectPDF() {
-        Intent intent=new Intent();
-        intent.setType("application/pdf");
-        intent.setAction(intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"PDF FILE SELECt"),12);
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void addFile() {
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(cl_content, Gravity.CENTER, 0, 0);
+
+        // dismiss the popup window when touched
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                popupWindow.dismiss();
+                return true;
+            }
+        });
+
+
+        Button btn_choose_file = popupView.findViewById(R.id.btn_choose);
+        Button btn_upload = popupView.findViewById(R.id.btn_upload);
+
+        btn_upload.setEnabled(false);
+        btn_choose_file.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectFile();
+            }
+        });
+        btn_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
@@ -181,13 +239,23 @@ public class TeacherCourse_content extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==12 && resultCode==RESULT_OK && data!=null && data.getData()!=null){
-            uploadpdf.setEnabled(true);
-            editText.setText(data.getDataString().substring(data.getDataString().lastIndexOf("/")+1));
+            Button btn_upload = popupView.findViewById(R.id.btn_upload);
+            btn_upload.setEnabled(true);
+            EditText file_name = popupView.findViewById(R.id.et_file_name);
+            file_name.setText(data.getDataString().substring(data.getDataString().lastIndexOf("/")+1));
 
-            uploadpdf.setOnClickListener(new View.OnClickListener() {
+            btn_upload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    uploadPDFFileFirebase(data.getData());
+
+                    uploadFileFirebase(data.getData());
+                    Intent intent=new Intent(TeacherCourse_content.this,TeacherCourse_content.class);
+                    intent.putExtra("course_name",coursename1);
+                    intent.putExtra("course_teacher",courseinstructor);
+                    intent.putExtra("course_code",coursecode1);
+                    startActivity(intent);
+//                    finish();
+
                 }
             });
         }else{
@@ -195,7 +263,14 @@ public class TeacherCourse_content extends AppCompatActivity {
         }
     }
 
-    private void uploadPDFFileFirebase(Uri data){
+    private void selectFile() {
+        Intent intent=new Intent();
+        intent.setType("*/*");
+        intent.setAction(intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"PDF FILE SELECt"),12);
+
+    }
+    private void uploadFileFirebase(Uri data){
         final ProgressDialog progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("File is loading.....");
         progressDialog.show();
@@ -209,15 +284,15 @@ public class TeacherCourse_content extends AppCompatActivity {
                         while (!uriTask.isComplete());
                         Uri uri=uriTask.getResult();
 
-                        uploadpdf uploadpdf=new uploadpdf(editText.getText().toString(),uri.toString());
+                        uploadpdf uploadpdf=new uploadpdf(file_name.getText().toString(),uri.toString());
                         FirebaseDatabase.getInstance().getReference("Course Material")
                                 .child(coursename1)
                                 .child(uploadpdf.getPdfname())
                                 .setValue(uploadpdf);
-                        editText.setText("");
+                        file_name.setText("");
                         Toast.makeText(TeacherCourse_content.this, "File Uploaded", Toast.LENGTH_SHORT).show();
 
-                        retrievepdf();
+
 
                     }
                 }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -227,6 +302,8 @@ public class TeacherCourse_content extends AppCompatActivity {
                         progressDialog.setMessage("File Uploading..."+(int)progress+"%");
                     }
                 });
+
+        retrieveFile();
 
 
     }

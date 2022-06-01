@@ -71,7 +71,7 @@ public class Student_cart_adapter extends FirebaseRecyclerAdapter<module, Studen
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context,CourseContent.class);
+                Intent intent=new Intent(context, StudentCourse_content.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("course_name",holder.name.getText().toString());
                 intent.putExtra("course_teacher",holder.email.getText().toString());
