@@ -44,7 +44,7 @@ public class TeacherCourse_content extends AppCompatActivity {
     TextView coursename,courseinst,refreshpage;
     EditText coursedesc,editText;
     String coursename1,courseinstructor,coursecode1,courseid;
-    Button uploadpdf,choosepdf,updatedesc,goback;
+    Button uploadpdf,choosepdf,updatedesc,goback,announcement;
     RecyclerView recyclerView;
     All_pdf_adapter mainAdapter;
     @Override
@@ -60,12 +60,20 @@ public class TeacherCourse_content extends AppCompatActivity {
         uploadpdf=findViewById(R.id.upload_pdf);
         updatedesc=findViewById(R.id.update_description);
         goback=findViewById(R.id.go_back);
+        announcement = findViewById(R.id.btnAnnouncement);
         refreshpage=findViewById(R.id.refresh_course);
 
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(TeacherCourse_content.this,TeacherCourses.class));
+            }
+        });
+
+        announcement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(TeacherCourse_content.this,announcement.class));
             }
         });
 

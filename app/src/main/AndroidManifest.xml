@@ -3,7 +3,8 @@
     package="com.example.login">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/back"
@@ -11,6 +12,9 @@
         android:roundIcon="@drawable/back"
         android:supportsRtl="true"
         android:theme="@style/Theme.Login">
+        <activity
+            android:name=".announcement"
+            android:exported="false" />
         <activity
             android:name=".TeacherCourse_content"
             android:exported="false" />
