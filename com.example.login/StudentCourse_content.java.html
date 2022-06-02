@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StudentCourse_content.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">login$UnitTests.exec</a> &gt; <a href="index.source.html" class="el_package">com.example.login</a> &gt; <span class="el_source">StudentCourse_content.java</span></div><h1>StudentCourse_content.java</h1><pre class="source lang-java linenums">package com.example.login;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+<span class="nc" id="L26">public class StudentCourse_content extends AppCompatActivity {</span>
+    TextView coursename,coursedesc,courseinst,coursecode;
+    Button subscribe,gotocourses, btn_take_quiz;
+<span class="nc" id="L29">    Boolean subscribed=false;</span>
+    int ratingNum;
+    String coursename1,courseinstructor,coursecode1,courseid;
+    RecyclerView recyclerView;
+    All_pdf_adapter mainAdapter;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+<span class="nc" id="L36">        super.onCreate(savedInstanceState);</span>
+<span class="nc" id="L37">        setContentView(R.layout.activity_student_course_content);</span>
+<span class="nc" id="L38">        getWindow().setStatusBarColor(ContextCompat.getColor(StudentCourse_content.this, R.color.teal_700));</span>
+
+<span class="nc" id="L40">        courseinst=findViewById(R.id.instructor_name);</span>
+<span class="nc" id="L41">        coursename=findViewById(R.id.course_name);</span>
+<span class="nc" id="L42">        coursedesc=findViewById(R.id.course_description);</span>
+<span class="nc" id="L43">        subscribe=findViewById(R.id.subscribe);</span>
+<span class="nc" id="L44">        gotocourses=findViewById(R.id.enrolled_courses);</span>
+<span class="nc" id="L45">        btn_take_quiz = findViewById(R.id.btn_take_quiz);</span>
+
+
+<span class="nc" id="L48">        coursename1=getIntent().getStringExtra(&quot;course_name&quot;);</span>
+<span class="nc" id="L49">        courseinstructor=getIntent().getStringExtra(&quot;course_teacher&quot;);</span>
+<span class="nc" id="L50">        coursecode1=getIntent().getStringExtra(&quot;course_code&quot;);</span>
+<span class="nc" id="L51">        courseid=getIntent().getStringExtra(&quot;course_id&quot;);</span>
+
+<span class="nc" id="L53">        courseinst.setText(courseinstructor);</span>
+<span class="nc" id="L54">        coursename.setText(coursecode1);</span>
+
+<span class="nc" id="L56">        recyclerView = (RecyclerView)findViewById(R.id.show_pdfs);</span>
+<span class="nc" id="L57">        recyclerView.setLayoutManager(new LinearLayoutManager(this));</span>
+<span class="nc" id="L58">        recyclerView.setItemAnimator(null);</span>
+
+<span class="nc" id="L60">        retrievepdf();</span>
+
+
+<span class="nc" id="L63">        FirebaseDatabase.getInstance().getReference(&quot;Course Description&quot;).child(coursename1)</span>
+<span class="nc" id="L64">                .addValueEventListener(new ValueEventListener() {</span>
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+<span class="nc" id="L67">                        coursedesc.setText(snapshot.getValue(String.class));</span>
+<span class="nc" id="L68">                    }</span>
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+<span class="nc" id="L72">                        Toast.makeText(StudentCourse_content.this, &quot;Couldnt load course description&quot;, Toast.LENGTH_SHORT).show();</span>
+<span class="nc" id="L73">                    }</span>
+                });
+
+
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if(getIntent().getStringExtra(&quot;dashboard_or_mycourses&quot;).equals(&quot;subscribed&quot;)){</span>
+<span class="nc" id="L78">            subscribe.setEnabled(false);</span>
+<span class="nc" id="L79">            subscribe.setText(&quot;Subscribed&quot;);</span>
+        }
+<span class="nc" id="L81">        subscribe.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View view) {
+<span class="nc bnc" id="L84" title="All 2 branches missed.">                if(!subscribed){</span>
+
+<span class="nc" id="L86">                    module module=new module(coursename1,coursecode1,courseinstructor,ratingNum);</span>
+<span class="nc" id="L87">                    FirebaseDatabase.getInstance().getReference(&quot;Enrol&quot;)</span>
+<span class="nc" id="L88">                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())</span>
+<span class="nc" id="L89">                            .child(coursecode1)</span>
+<span class="nc" id="L90">                            .setValue(module)</span>
+<span class="nc" id="L91">                            .addOnCompleteListener(new OnCompleteListener&lt;Void&gt;() {</span>
+                                @Override
+                                public void onComplete(@NonNull Task&lt;Void&gt; task) {
+<span class="nc bnc" id="L94" title="All 2 branches missed.">                                    if(task.isSuccessful()){</span>
+<span class="nc" id="L95">                                        Toast.makeText(StudentCourse_content.this,&quot;Successfully subscribed to the course&quot;,Toast.LENGTH_SHORT).show();</span>
+                                    }
+<span class="nc" id="L97">                                }</span>
+                            });
+
+<span class="nc" id="L100">                    subscribe.setText(&quot;Subscribed&quot;);</span>
+<span class="nc" id="L101">                    subscribed=true;</span>
+<span class="nc" id="L102">                }else{</span>
+<span class="nc" id="L103">                    Toast.makeText(StudentCourse_content.this,&quot;Already subscribed to the course&quot;,Toast.LENGTH_SHORT).show();</span>
+                }
+<span class="nc" id="L105">            }</span>
+        });
+
+<span class="nc" id="L108">        gotocourses.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View view) {
+<span class="nc" id="L111">                startActivity(new Intent(StudentCourse_content.this,StudentCourses.class));</span>
+<span class="nc" id="L112">            }</span>
+        });
+
+<span class="nc" id="L115">        btn_take_quiz.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View v) {
+<span class="nc" id="L118">                Intent intent=new Intent(StudentCourse_content.this, StudentPlayQuiz.class);</span>
+<span class="nc" id="L119">                intent.putExtra(&quot;course_code&quot;,coursename1) ;</span>
+<span class="nc" id="L120">            startActivity(intent);</span>
+<span class="nc" id="L121">            }</span>
+        });
+
+<span class="nc" id="L124">    }</span>
+    @Override
+    public void onBackPressed()
+    {
+<span class="nc" id="L128">        finish();</span>
+<span class="nc" id="L129">    }</span>
+
+    private void retrievepdf() {
+<span class="nc" id="L132">        FirebaseRecyclerOptions&lt;uploadpdf&gt; options =</span>
+                new FirebaseRecyclerOptions.Builder&lt;uploadpdf&gt;()
+<span class="nc" id="L134">                        .setQuery(FirebaseDatabase.getInstance().getReference().child(&quot;Course Material&quot;).child(coursename1), uploadpdf.class)//.orderByChild(&quot;modName&quot;).equalTo(&quot;APHY8010&quot;)</span>
+<span class="nc" id="L135">                        .build();</span>
+<span class="nc" id="L136">        mainAdapter = new All_pdf_adapter(options,getApplicationContext(), false);</span>
+<span class="nc" id="L137">        recyclerView.setAdapter(mainAdapter);</span>
+<span class="nc" id="L138">    }</span>
+
+    @Override
+    protected void onStart(){
+<span class="nc" id="L142">        super.onStart();</span>
+<span class="nc" id="L143">        mainAdapter.startListening();</span>
+<span class="nc" id="L144">        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">        if(user==null){</span>
+<span class="nc" id="L146">            startActivity(new Intent(StudentCourse_content.this,login.class));</span>
+        }
+<span class="nc" id="L148">    }</span>
+    @Override
+    protected void onStop() {
+<span class="nc" id="L151">        super.onStop();</span>
+<span class="nc" id="L152">        mainAdapter.stopListening();</span>
+<span class="nc" id="L153">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
