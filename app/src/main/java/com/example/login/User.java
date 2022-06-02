@@ -1,22 +1,21 @@
 package com.example.login;
 
 public class User {
-    private String fullName, occupation, email;
 
+    public String password, email;
+    
     public User (){
     }
 
-    public User(String fullName, String occupation, String email){
-        this.fullName = fullName;
-        this.occupation = occupation;
+    public User(String password, String email) {
+        this.password = password;
         this.email = email;
     }
+    public String getEmail(){
+        return email;
+    }
+    public String getPassword(){
+        return password;
+    }
 
-    public void setFullName(String fullName) { this.fullName = fullName;}
-    public void setOccupation(String occupation) { this.occupation = occupation;}
-    public void setFullEmail(String email) { this.email = email;}
-
-    public String getFullName() { return this.fullName;}
-    public String getOccupation() { return this.occupation;}
-    public String getFullEmail() { return this.email;}
 }
