@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TeacherCourse_content.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">login$UnitTests.exec</a> &gt; <a href="index.source.html" class="el_package">com.example.login</a> &gt; <span class="el_source">TeacherCourse_content.java</span></div><h1>TeacherCourse_content.java</h1><pre class="source lang-java linenums">package com.example.login;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
+
+<span class="nc" id="L42">public class TeacherCourse_content extends AppCompatActivity {</span>
+    TextView coursename,courseinst,refreshpage;
+    EditText coursedesc, file_name;
+    String coursename1,courseinstructor,coursecode1,courseid;
+    Button updatedesc,goback, btn_add_file, btn_add_quiz, btn_upload, btn_choose_file;
+    RecyclerView recyclerView;
+    All_pdf_adapter mainAdapter;
+    ConstraintLayout cl_content;
+    LayoutInflater inflater;
+    View popupView;
+    PopupWindow popupWindow;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+<span class="nc" id="L55">        super.onCreate(savedInstanceState);</span>
+<span class="nc" id="L56">        setContentView(R.layout.activity_teacher_course_content);</span>
+
+<span class="nc" id="L58">        courseinst=findViewById(R.id.instructor_name);</span>
+<span class="nc" id="L59">        coursename=findViewById(R.id.course_name);</span>
+<span class="nc" id="L60">        coursedesc=findViewById(R.id.edit_course_desc);</span>
+<span class="nc" id="L61">        btn_add_file = findViewById(R.id.btn_add_file);</span>
+<span class="nc" id="L62">        btn_add_quiz = findViewById(R.id.btn_add_quiz);</span>
+//        uploadpdf=findViewById(R.id.btn_add_quiz);
+<span class="nc" id="L64">        updatedesc=findViewById(R.id.update_description);</span>
+<span class="nc" id="L65">        goback=findViewById(R.id.go_back);</span>
+
+<span class="nc" id="L67">        goback.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View view) {
+<span class="nc" id="L70">                startActivity(new Intent(TeacherCourse_content.this,TeacherCourses.class));</span>
+<span class="nc" id="L71">            }</span>
+        });
+
+<span class="nc" id="L74">        coursename1=getIntent().getStringExtra(&quot;course_name&quot;);</span>
+<span class="nc" id="L75">        courseinstructor=getIntent().getStringExtra(&quot;course_teacher&quot;);</span>
+<span class="nc" id="L76">        coursecode1=getIntent().getStringExtra(&quot;course_code&quot;);</span>
+
+<span class="nc" id="L78">        btn_add_quiz.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View v) {
+<span class="nc" id="L81">                Intent intent=new Intent(TeacherCourse_content.this, createQuiz.class);</span>
+<span class="nc" id="L82">                intent.putExtra(&quot;course_code&quot;,coursename1);</span>
+<span class="nc" id="L83">                startActivity(intent);</span>
+<span class="nc" id="L84">            }</span>
+        });
+
+
+
+
+<span class="nc" id="L90">        courseinst.setText(courseinstructor);</span>
+<span class="nc" id="L91">        coursename.setText(coursecode1);</span>
+
+<span class="nc" id="L93">        FirebaseDatabase.getInstance().getReference(&quot;Course Description&quot;).child(coursename1)</span>
+<span class="nc" id="L94">                .addValueEventListener(new ValueEventListener() {</span>
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+<span class="nc" id="L97">                        coursedesc.setText(snapshot.getValue(String.class));</span>
+<span class="nc" id="L98">                    }</span>
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+<span class="nc" id="L102">                        Toast.makeText(TeacherCourse_content.this, &quot;Couldnt retrieve course description&quot;, Toast.LENGTH_SHORT).show();</span>
+<span class="nc" id="L103">                    }</span>
+                });
+
+<span class="nc" id="L106">        updatedesc.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View view) {
+<span class="nc" id="L109">                updateDescription();</span>
+<span class="nc" id="L110">            }</span>
+        });
+
+<span class="nc" id="L113">        cl_content = findViewById(R.id.cl_content);</span>
+
+<span class="nc" id="L115">        inflater = (LayoutInflater)</span>
+<span class="nc" id="L116">                getSystemService(LAYOUT_INFLATER_SERVICE);</span>
+<span class="nc" id="L117">        popupView = inflater.inflate(R.layout.popup_upload_content, null);</span>
+
+        // create the popup window
+<span class="nc" id="L120">        int width = LinearLayout.LayoutParams.WRAP_CONTENT;</span>
+<span class="nc" id="L121">        int height = LinearLayout.LayoutParams.WRAP_CONTENT;</span>
+<span class="nc" id="L122">        boolean focusable = true; // lets taps outside the popup also dismiss it</span>
+<span class="nc" id="L123">        popupWindow = new PopupWindow(popupView, width, height, focusable);</span>
+<span class="nc" id="L124">        popupWindow.setHeight(1000);</span>
+<span class="nc" id="L125">        popupWindow.setWidth(800);</span>
+
+<span class="nc" id="L127">        btn_upload = popupView.findViewById(R.id.btn_upload);</span>
+<span class="nc" id="L128">        btn_choose_file = popupView.findViewById(R.id.btn_choose);</span>
+<span class="nc" id="L129">        file_name = popupView.findViewById(R.id.et_file_name);</span>
+
+<span class="nc" id="L131">        btn_upload.setEnabled(false);</span>
+<span class="nc" id="L132">        btn_add_file.setOnClickListener(new View.OnClickListener() {</span>
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+<span class="nc" id="L136">                addFile();</span>
+<span class="nc" id="L137">            }</span>
+        });
+
+
+
+<span class="nc" id="L142">        recyclerView = (RecyclerView)findViewById(R.id.course_pdfs);</span>
+<span class="nc" id="L143">        recyclerView.setLayoutManager(new LinearLayoutManager(this));</span>
+<span class="nc" id="L144">        recyclerView.setItemAnimator(null);</span>
+<span class="nc" id="L145">        retrieveFile();</span>
+<span class="nc" id="L146">    }</span>
+
+    @Override
+    protected void onDestroy()
+    {
+<span class="nc" id="L151">        super.onDestroy();</span>
+<span class="nc" id="L152">    }</span>
+
+    private void updateDescription() {
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        if(coursedesc.getText().toString()!=null){</span>
+<span class="nc" id="L156">            FirebaseDatabase.getInstance().getReference(&quot;Course Description&quot;).child(coursename1).setValue(coursedesc.getText().toString())</span>
+<span class="nc" id="L157">                    .addOnSuccessListener(new OnSuccessListener&lt;Void&gt;() {</span>
+                        @Override
+                        public void onSuccess(Void unused) {
+<span class="nc" id="L160">                            Toast.makeText(TeacherCourse_content.this, &quot;Successfully updated course&quot;, Toast.LENGTH_SHORT).show();</span>
+<span class="nc" id="L161">                        }</span>
+                    });
+        }else{
+<span class="nc" id="L164">            FirebaseDatabase.getInstance().getReference(&quot;Course Description&quot;).child(coursename1).setValue(&quot;None&quot;)</span>
+<span class="nc" id="L165">                    .addOnSuccessListener(new OnSuccessListener&lt;Void&gt;() {</span>
+                        @Override
+                        public void onSuccess(Void unused) {
+<span class="nc" id="L168">                            Toast.makeText(TeacherCourse_content.this, &quot;Successfully updated course&quot;, Toast.LENGTH_SHORT).show();</span>
+<span class="nc" id="L169">                        }</span>
+                    });
+        }
+
+
+<span class="nc" id="L174">    }</span>
+
+    @Override
+    public void onBackPressed()
+    {
+<span class="nc" id="L179">        startActivity(new Intent(TeacherCourse_content.this,TeacherCourses.class));</span>
+<span class="nc" id="L180">    }</span>
+
+    private void retrieveFile() {
+<span class="nc" id="L183">        recyclerView.setItemAnimator(null);</span>
+<span class="nc" id="L184">        FirebaseRecyclerOptions&lt;uploadpdf&gt; options =</span>
+                new FirebaseRecyclerOptions.Builder&lt;uploadpdf&gt;()
+<span class="nc" id="L186">                        .setQuery(FirebaseDatabase.getInstance().getReference().child(&quot;Course Material&quot;).child(coursename1), uploadpdf.class)</span>
+<span class="nc" id="L187">                        .build();</span>
+<span class="nc" id="L188">        mainAdapter = new All_pdf_adapter(options,getApplicationContext(), this.getIntent(),true);</span>
+<span class="nc" id="L189">        recyclerView.setAdapter(mainAdapter);</span>
+<span class="nc" id="L190">    }</span>
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void addFile() {
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+<span class="nc" id="L197">        popupWindow.showAtLocation(cl_content, Gravity.CENTER, 0, 0);</span>
+
+        // dismiss the popup window when touched
+<span class="nc" id="L200">        popupView.setOnTouchListener(new View.OnTouchListener() {</span>
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+<span class="nc" id="L203">                popupWindow.dismiss();</span>
+<span class="nc" id="L204">                return true;</span>
+            }
+        });
+
+
+<span class="nc" id="L209">        Button btn_choose_file = popupView.findViewById(R.id.btn_choose);</span>
+<span class="nc" id="L210">        Button btn_upload = popupView.findViewById(R.id.btn_upload);</span>
+
+<span class="nc" id="L212">        btn_upload.setEnabled(false);</span>
+<span class="nc" id="L213">        btn_choose_file.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View v) {
+<span class="nc" id="L216">                selectFile();</span>
+<span class="nc" id="L217">            }</span>
+        });
+<span class="nc" id="L219">        btn_upload.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View v) {
+
+<span class="nc" id="L223">            }</span>
+        });
+
+<span class="nc" id="L226">    }</span>
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+<span class="nc" id="L230">        super.onActivityResult(requestCode, resultCode, data);</span>
+<span class="nc bnc" id="L231" title="All 8 branches missed.">        if(requestCode==12 &amp;&amp; resultCode==RESULT_OK &amp;&amp; data!=null &amp;&amp; data.getData()!=null){</span>
+<span class="nc" id="L232">            Button btn_upload = popupView.findViewById(R.id.btn_upload);</span>
+<span class="nc" id="L233">            btn_upload.setEnabled(true);</span>
+<span class="nc" id="L234">            EditText file_name = popupView.findViewById(R.id.et_file_name);</span>
+<span class="nc" id="L235">            file_name.setText(data.getDataString().substring(data.getDataString().lastIndexOf(&quot;/&quot;)+1));</span>
+
+<span class="nc" id="L237">            btn_upload.setOnClickListener(new View.OnClickListener() {</span>
+                @Override
+                public void onClick(View view) {
+
+<span class="nc" id="L241">                    uploadFileFirebase(data.getData());</span>
+<span class="nc" id="L242">                    Intent intent=new Intent(TeacherCourse_content.this,TeacherCourse_content.class);</span>
+<span class="nc" id="L243">                    intent.putExtra(&quot;course_name&quot;,coursename1);</span>
+<span class="nc" id="L244">                    intent.putExtra(&quot;course_teacher&quot;,courseinstructor);</span>
+<span class="nc" id="L245">                    intent.putExtra(&quot;course_code&quot;,coursecode1);</span>
+<span class="nc" id="L246">                    startActivity(intent);</span>
+//                    finish();
+
+<span class="nc" id="L249">                }</span>
+            });
+<span class="nc" id="L251">        }else{</span>
+<span class="nc" id="L252">            Toast.makeText(TeacherCourse_content.this, &quot;&quot;, Toast.LENGTH_SHORT).show();</span>
+        }
+<span class="nc" id="L254">    }</span>
+
+    private void selectFile() {
+<span class="nc" id="L257">        Intent intent=new Intent();</span>
+<span class="nc" id="L258">        intent.setType(&quot;*/*&quot;);</span>
+<span class="nc" id="L259">        intent.setAction(intent.ACTION_GET_CONTENT);</span>
+<span class="nc" id="L260">        startActivityForResult(Intent.createChooser(intent,&quot;PDF FILE SELECt&quot;),12);</span>
+
+<span class="nc" id="L262">    }</span>
+    private void uploadFileFirebase(Uri data){
+<span class="nc" id="L264">        final ProgressDialog progressDialog=new ProgressDialog(this);</span>
+<span class="nc" id="L265">        progressDialog.setTitle(&quot;File is loading.....&quot;);</span>
+<span class="nc" id="L266">        progressDialog.show();</span>
+
+<span class="nc" id="L268">        StorageTask&lt;UploadTask.TaskSnapshot&gt; reference= FirebaseStorage.getInstance().getReference(&quot;Lecture_Notes&quot;).child(coursecode1)</span>
+<span class="nc" id="L269">                .putFile(data)</span>
+<span class="nc" id="L270">                .addOnSuccessListener(new OnSuccessListener&lt;UploadTask.TaskSnapshot&gt;() {</span>
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+<span class="nc" id="L273">                        Task&lt;Uri&gt; uriTask=taskSnapshot.getStorage().getDownloadUrl();</span>
+<span class="nc bnc" id="L274" title="All 2 branches missed.">                        while (!uriTask.isComplete());</span>
+<span class="nc" id="L275">                        Uri uri=uriTask.getResult();</span>
+
+<span class="nc" id="L277">                        uploadpdf uploadpdf=new uploadpdf(file_name.getText().toString(),uri.toString());</span>
+<span class="nc" id="L278">                        FirebaseDatabase.getInstance().getReference(&quot;Course Material&quot;)</span>
+<span class="nc" id="L279">                                .child(coursename1)</span>
+<span class="nc" id="L280">                                .child(uploadpdf.getPdfname())</span>
+<span class="nc" id="L281">                                .setValue(uploadpdf);</span>
+<span class="nc" id="L282">                        file_name.setText(&quot;&quot;);</span>
+<span class="nc" id="L283">                        Toast.makeText(TeacherCourse_content.this, &quot;File Uploaded&quot;, Toast.LENGTH_SHORT).show();</span>
+
+
+
+<span class="nc" id="L287">                    }</span>
+<span class="nc" id="L288">                }).addOnProgressListener(new OnProgressListener&lt;UploadTask.TaskSnapshot&gt;() {</span>
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+<span class="nc" id="L291">                        double progress=(100.0*snapshot.getBytesTransferred())/snapshot.getTotalByteCount();</span>
+<span class="nc" id="L292">                        progressDialog.setMessage(&quot;File Uploading...&quot;+(int)progress+&quot;%&quot;);</span>
+<span class="nc" id="L293">                    }</span>
+                });
+
+<span class="nc" id="L296">        retrieveFile();</span>
+
+
+<span class="nc" id="L299">    }</span>
+
+    @Override
+    protected void onStart(){
+<span class="nc" id="L303">        super.onStart();</span>
+<span class="nc" id="L304">        mainAdapter.startListening();</span>
+<span class="nc" id="L305">        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();</span>
+<span class="nc bnc" id="L306" title="All 2 branches missed.">        if(user==null){</span>
+<span class="nc" id="L307">            startActivity(new Intent(TeacherCourse_content.this,login.class));</span>
+        }
+<span class="nc" id="L309">    }</span>
+    @Override
+    protected void onStop() {
+<span class="nc" id="L312">        super.onStop();</span>
+<span class="nc" id="L313">        mainAdapter.stopListening();</span>
+<span class="nc" id="L314">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

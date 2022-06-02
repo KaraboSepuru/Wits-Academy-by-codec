@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>module.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">login$UnitTests.exec</a> &gt; <a href="index.source.html" class="el_package">com.example.login</a> &gt; <span class="el_source">module.java</span></div><h1>module.java</h1><pre class="source lang-java linenums">package com.example.login;
+
+import android.widget.RatingBar;
+
+public class module {
+    private String modName, modCode, modTeacher;
+
+    private float rating;
+
+<span class="nc" id="L10">    module (){</span>
+
+
+<span class="nc" id="L13">    }</span>
+
+<span class="fc" id="L15">    module(String modCode, String modName, String modTeacher, float rating){</span>
+<span class="fc" id="L16">        setModName(modName);</span>
+<span class="fc" id="L17">        setModCode(modCode);</span>
+<span class="fc" id="L18">        setModTeacher(modTeacher);</span>
+<span class="fc" id="L19">        setRatingNum(rating);</span>
+<span class="fc" id="L20">    }</span>
+
+<span class="fc" id="L22">    public float getRatingNum(){return rating;}</span>
+
+    public String getModName() {
+<span class="fc" id="L25">        return modName;</span>
+    }
+
+    public String getModCode() {
+<span class="fc" id="L29">        return modCode;</span>
+    }
+
+    public String getModTeacher() {
+<span class="fc" id="L33">        return modTeacher;</span>
+    }
+
+    public void setModName(String modName) {
+<span class="fc" id="L37">        this.modName = modName;</span>
+<span class="fc" id="L38">    }</span>
+
+    public void setModCode(String modCode) {
+<span class="fc" id="L41">        this.modCode = modCode;</span>
+<span class="fc" id="L42">    }</span>
+
+    public void setModTeacher(String modTeacher) {
+<span class="fc" id="L45">        this.modTeacher = modTeacher;</span>
+<span class="fc" id="L46">    }</span>
+
+    public void setRatingNum(float num){
+<span class="fc" id="L49">        this.rating = num;</span>
+<span class="fc" id="L50">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

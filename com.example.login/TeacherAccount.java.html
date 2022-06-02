@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TeacherAccount.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">login$UnitTests.exec</a> &gt; <a href="index.source.html" class="el_package">com.example.login</a> &gt; <span class="el_source">TeacherAccount.java</span></div><h1>TeacherAccount.java</h1><pre class="source lang-java linenums">package com.example.login;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+<span class="nc" id="L24">public class TeacherAccount extends AppCompatActivity {</span>
+    BottomNavigationView bottomNavigationView;
+    TextInputEditText teacher_email,teacher_pass;
+    String initialemail,initialpass;
+    Button signout,update;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+<span class="nc" id="L31">        super.onCreate(savedInstanceState);</span>
+<span class="nc" id="L32">        setContentView(R.layout.activity_teacher_account);</span>
+
+        //Create navigation bar
+<span class="nc" id="L35">        createnavigationbar();</span>
+
+        //Get initial email and password
+<span class="nc" id="L38">        getinitialEmailPass();</span>
+
+<span class="nc" id="L40">        teacher_email=findViewById(R.id.update_teacher_email);</span>
+<span class="nc" id="L41">        teacher_pass=findViewById(R.id.update_teacher_password);</span>
+<span class="nc" id="L42">        signout=findViewById(R.id.logout_teacher);</span>
+<span class="nc" id="L43">        update=findViewById(R.id.update_teacher_details);</span>
+
+<span class="nc" id="L45">        signout.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View view) {
+<span class="nc" id="L48">                startActivity(new Intent(TeacherAccount.this,login.class));</span>
+<span class="nc" id="L49">            }</span>
+        });
+
+<span class="nc" id="L52">        update.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View view) {
+<span class="nc" id="L55">                updatedetails();</span>
+<span class="nc" id="L56">            }</span>
+        });
+
+<span class="nc" id="L59">    }</span>
+
+    @Override
+    protected void onStart(){
+<span class="nc" id="L63">        super.onStart();</span>
+<span class="nc" id="L64">        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if(user==null){</span>
+<span class="nc" id="L66">            startActivity(new Intent(TeacherAccount.this,login.class));</span>
+        }
+<span class="nc" id="L68">    }</span>
+
+    private void getinitialEmailPass(){
+<span class="nc" id="L71">        FirebaseDatabase.getInstance().getReference()</span>
+<span class="nc" id="L72">                .child(&quot;Teacher&quot;)</span>
+<span class="nc" id="L73">                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())</span>
+<span class="nc" id="L74">                .addValueEventListener(new ValueEventListener() {</span>
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+<span class="nc" id="L77">                        User teacher=snapshot.getValue(User.class);</span>
+
+<span class="nc" id="L79">                        initialemail=teacher.getEmail();</span>
+<span class="nc" id="L80">                        initialpass=teacher.getPassword();</span>
+
+<span class="nc" id="L82">                        teacher_email.setText(initialemail);</span>
+<span class="nc" id="L83">                        teacher_pass.setText(initialpass);</span>
+<span class="nc" id="L84">                    }</span>
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+<span class="nc" id="L88">                        Toast.makeText(TeacherAccount.this,&quot;Couldnt retrieve user information.&quot;,Toast.LENGTH_SHORT).show();</span>
+<span class="nc" id="L89">                    }</span>
+                });
+<span class="nc" id="L91">    }</span>
+
+    private void createnavigationbar(){
+<span class="nc" id="L94">        bottomNavigationView=findViewById(R.id.bottom_navigation);</span>
+<span class="nc" id="L95">        bottomNavigationView.setSelectedItemId(R.id.teacher_account);</span>
+<span class="nc" id="L96">        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {</span>
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+<span class="nc bnc" id="L99" title="All 4 branches missed.">                switch (item.getItemId()){</span>
+                    case R.id.teacher_courses:
+<span class="nc" id="L101">                        startActivity(new Intent(TeacherAccount.this,TeacherCourses.class).putExtra(&quot;activity&quot;,&quot;account&quot;));</span>
+<span class="nc" id="L102">                        overridePendingTransition(0,0);</span>
+<span class="nc" id="L103">                        return true;</span>
+                    case R.id.add_module:
+<span class="nc" id="L105">                        startActivity(new Intent(TeacherAccount.this,Teacher_New_Module.class).putExtra(&quot;activity&quot;,&quot;account&quot;));</span>
+<span class="nc" id="L106">                        overridePendingTransition(0,0);</span>
+<span class="nc" id="L107">                        return true;</span>
+                    case R.id.teacher_account:
+<span class="nc" id="L109">                        return true;</span>
+                }
+<span class="nc" id="L111">                return false;</span>
+            }
+        });
+<span class="nc" id="L114">    }</span>
+
+    @Override
+    public void onBackPressed()
+    {
+        /*
+        if(getIntent().getStringExtra(&quot;activity&quot;)==&quot;courses&quot;){
+            startActivity(new Intent(this, TeacherCourses.class));
+        }else{
+            startActivity(new Intent(this, Teacher_New_Module.class));
+        }
+        finish();
+         */
+<span class="nc" id="L127">    }</span>
+
+    private void updatedetails() {
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        if(teacher_email.getText().toString().isEmpty()){</span>
+<span class="nc" id="L131">            teacher_email.setError(&quot;Email cannot be empty&quot;);</span>
+<span class="nc" id="L132">            teacher_email.requestFocus();</span>
+        }
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        else if(teacher_pass.getText().toString().isEmpty()){</span>
+<span class="nc" id="L135">            teacher_pass.setError(&quot;Password cannot be empty&quot;);</span>
+<span class="nc" id="L136">            teacher_pass.requestFocus();</span>
+        }else{
+<span class="nc bnc" id="L138" title="All 4 branches missed.">            if(!initialemail.equals(teacher_email.getText().toString().trim()) || !initialpass.equals(teacher_pass.getText().toString().trim()) ){</span>
+<span class="nc" id="L139">                User user=new User(teacher_pass.getText().toString().trim(),teacher_email.getText().toString().trim());</span>
+
+<span class="nc" id="L141">                FirebaseAuth.getInstance().getCurrentUser().updateEmail(teacher_email.getText().toString().trim());</span>
+<span class="nc" id="L142">                FirebaseAuth.getInstance().getCurrentUser().updatePassword(teacher_pass.getText().toString().trim());</span>
+<span class="nc" id="L143">                FirebaseDatabase.getInstance().getReference()</span>
+<span class="nc" id="L144">                        .child(&quot;Teacher&quot;)</span>
+<span class="nc" id="L145">                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())</span>
+<span class="nc" id="L146">                        .setValue(user).addOnCompleteListener(new OnCompleteListener&lt;Void&gt;() {</span>
+                    @Override
+                    public void onComplete(@NonNull Task&lt;Void&gt; task) {
+<span class="nc bnc" id="L149" title="All 2 branches missed.">                        if(task.isSuccessful()){</span>
+<span class="nc" id="L150">                            Toast.makeText(TeacherAccount.this,&quot;Successfully updated details&quot;,Toast.LENGTH_SHORT).show();</span>
+                        }else{
+<span class="nc" id="L152">                            Toast.makeText(TeacherAccount.this,&quot;Registration Error: &quot;+task.getException().getMessage(),Toast.LENGTH_SHORT).show();</span>
+                        }
+<span class="nc" id="L154">                    }</span>
+                });
+
+
+                ;
+<span class="nc" id="L159">            }else{</span>
+<span class="nc" id="L160">                Toast.makeText(TeacherAccount.this,&quot;Successfully updated details&quot;,Toast.LENGTH_SHORT).show();</span>
+            }
+        }
+<span class="nc" id="L163">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
