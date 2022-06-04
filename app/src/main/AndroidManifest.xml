@@ -13,15 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Login">
         <activity
+            android:name=".courseQuizzes"
+            android:exported="false" />
+        <activity
+            android:name=".addQuizWithName"
+            android:exported="false" />
+        <activity
+            android:name=".Quiz_Preview"
+            android:exported="false" />
+        <activity
             android:name=".StudentPlayQuiz"
-            android:exported="false" >
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".createQuiz"
-            android:exported="false">
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".TeacherCourse_content"
             android:exported="false" />
@@ -46,8 +51,9 @@
         <activity
             android:name=".StudentCourse_content"
             android:exported="false" />
-        <activity android:name=".studentStartQuiz"
-            android:exported="false"/>
+        <activity
+            android:name=".studentStartQuiz"
+            android:exported="false" />
         <activity
             android:name=".register"
             android:exported="false" />

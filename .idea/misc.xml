@@ -44,7 +44,22 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/menu/menu_options.xml" value="0.1796875" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/menu/search.xml" value="0.1796875" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Wits-Academy-by-codec/app/src/main/res/menu/teacher_menu.xml" value="0.28378378378378377" />
-
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/drawable/selector.xml" value="0.162" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_add_quiz.xml" value="0.1921875" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_add_quiz_with_name.xml" value="0.17395833333333333" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_course_quizzes.xml" value="0.10277777777777777" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_create_quiz.xml" value="0.1921875" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_quiz_preview.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_student_course_content.xml" value="0.18699186991869918" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_student_courses.xml" value="0.1921875" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_student_play_quiz.xml" value="0.1921875" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_student_start_quiz.xml" value="0.1921875" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_teacher_account.xml" value="0.1921875" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/activity_teacher_course_content.xml" value="0.25" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/image_rc.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/layout/quizmodel.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/menu/menu_navigation.xml" value="0.33" />
+        <entry key="..\:/Users/thato/Desktop/Wits-Academy-by-codec/app/src/main/res/menu/teacher_menu.xml" value="0.33" />
         <entry key="app/src/main/res/drawable/border.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_dashboard.xml" value="0.19" />
         <entry key="app/src/main/res/layout/activity_add_quiz.xml" value="0.18177083333333333" />
