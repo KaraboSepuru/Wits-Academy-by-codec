@@ -23,24 +23,27 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class CourseContent extends AppCompatActivity {
+public class StudentCourse_content extends AppCompatActivity {
     TextView coursename,coursedesc,courseinst,coursecode;
-    Button subscribe,gotocourses;
+    Button subscribe,gotocourses, btn_take_quiz;
     Boolean subscribed=false;
+    int ratingNum;
     String coursename1,courseinstructor,coursecode1,courseid;
     RecyclerView recyclerView;
     All_pdf_adapter mainAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_course_content);
-        getWindow().setStatusBarColor(ContextCompat.getColor(CourseContent.this, R.color.teal_700));
+        setContentView(R.layout.activity_student_course_content);
+        getWindow().setStatusBarColor(ContextCompat.getColor(StudentCourse_content.this, R.color.teal_700));
 
         courseinst=findViewById(R.id.instructor_name);
         coursename=findViewById(R.id.course_name);
         coursedesc=findViewById(R.id.course_description);
         subscribe=findViewById(R.id.subscribe);
         gotocourses=findViewById(R.id.enrolled_courses);
+        btn_take_quiz = findViewById(R.id.btn_take_quiz);
+
 
         coursename1=getIntent().getStringExtra("course_name");
         courseinstructor=getIntent().getStringExtra("course_teacher");
@@ -52,6 +55,7 @@ public class CourseContent extends AppCompatActivity {
 
         recyclerView = (RecyclerView)findViewById(R.id.show_pdfs);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(null);
 
         retrievepdf();
 
@@ -65,7 +69,7 @@ public class CourseContent extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(CourseContent.this, "Couldnt load course description", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StudentCourse_content.this, "Couldnt load course description", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -79,7 +83,7 @@ public class CourseContent extends AppCompatActivity {
             public void onClick(View view) {
                 if(!subscribed){
 
-                    module module=new module(coursename1,coursecode1,courseinstructor);
+                    module module=new module(coursename1,coursecode1,courseinstructor,ratingNum);
                     FirebaseDatabase.getInstance().getReference("Enrol")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .child(coursecode1)
@@ -88,7 +92,7 @@ public class CourseContent extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(CourseContent.this,"Successfully subscribed to the course",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(StudentCourse_content.this,"Successfully subscribed to the course",Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -96,7 +100,7 @@ public class CourseContent extends AppCompatActivity {
                     subscribe.setText("Subscribed");
                     subscribed=true;
                 }else{
-                    Toast.makeText(CourseContent.this,"Already subscribed to the course",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StudentCourse_content.this,"Already subscribed to the course",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -104,7 +108,16 @@ public class CourseContent extends AppCompatActivity {
         gotocourses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CourseContent.this,StudentCourses.class));
+                startActivity(new Intent(StudentCourse_content.this,StudentCourses.class));
+            }
+        });
+
+        btn_take_quiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(StudentCourse_content.this, StudentPlayQuiz.class);
+                intent.putExtra("course_code",coursename1) ;
+            startActivity(intent);
             }
         });
 
@@ -112,7 +125,7 @@ public class CourseContent extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-
+        finish();
     }
 
     private void retrievepdf() {
@@ -120,7 +133,7 @@ public class CourseContent extends AppCompatActivity {
                 new FirebaseRecyclerOptions.Builder<uploadpdf>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Course Material").child(coursename1), uploadpdf.class)//.orderByChild("modName").equalTo("APHY8010")
                         .build();
-        mainAdapter = new All_pdf_adapter(options,getApplicationContext());
+        mainAdapter = new All_pdf_adapter(options,getApplicationContext(), false);
         recyclerView.setAdapter(mainAdapter);
     }
 
@@ -130,7 +143,7 @@ public class CourseContent extends AppCompatActivity {
         mainAdapter.startListening();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user==null){
-            startActivity(new Intent(CourseContent.this,login.class));
+            startActivity(new Intent(StudentCourse_content.this,login.class));
         }
     }
     @Override

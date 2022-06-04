@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,18 +36,22 @@ public class Adapter_View_AllCourses extends FirebaseRecyclerAdapter<module, Ada
 
     @Override
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull module model) {
+        Random rand = new Random();
+
         if(which=="mycourses"){
             holder.name.setText(model.getModName());
             holder.course.setText(model.getModCode());
             holder.email.setText(model.getModTeacher());
+            holder.ratingBar.setRating(rand.nextInt((5 - 1) + 1) + 1);
+
         }else{
             holder.name.setText(model.getModCode());
             holder.course.setText(model.getModName());
             holder.email.setText(model.getModTeacher());
+            holder.ratingBar.setRating(rand.nextInt((5 - 1) + 1) + 1);
         }
 
 
-        Random rand = new Random();
         int randomNum = rand.nextInt((7 - 0) + 1) + 0;
 
         switch (randomNum){
@@ -87,7 +92,7 @@ public class Adapter_View_AllCourses extends FirebaseRecyclerAdapter<module, Ada
                     intent.putExtra("course_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
                     context.startActivity(intent);
                 }else{
-                    Intent intent=new Intent(context,CourseContent.class);
+                    Intent intent=new Intent(context, StudentCourse_content.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("course_name",holder.name.getText().toString());
                     intent.putExtra("course_teacher",holder.email.getText().toString());
@@ -111,8 +116,10 @@ public class Adapter_View_AllCourses extends FirebaseRecyclerAdapter<module, Ada
     class myViewHolder extends RecyclerView.ViewHolder{
         TextView name,course,email;
         ImageView imageView;
+        RatingBar ratingBar;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
+            ratingBar = (RatingBar)itemView.findViewById(R.id.ratingBar);
             name = (TextView)itemView.findViewById(R.id.nametext2);
             course = (TextView)itemView.findViewById(R.id.coursetext2);
             email = (TextView)itemView.findViewById(R.id.emailtext2);

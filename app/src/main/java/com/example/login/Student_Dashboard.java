@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -98,8 +99,6 @@ public class Student_Dashboard extends AppCompatActivity {
             mainAdapter.startListening();
             recyclerView.setAdapter(mainAdapter);
         }
-
-
     }
 
     @Override
@@ -120,5 +119,6 @@ public class Student_Dashboard extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
+
     }
 }

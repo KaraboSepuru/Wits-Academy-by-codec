@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>login.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">login$UnitTests.exec</a> &gt; <a href="index.source.html" class="el_package">com.example.login</a> &gt; <span class="el_source">login.java</span></div><h1>login.java</h1><pre class="source lang-java linenums">package com.example.login;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.regex.Pattern;
+
+<span class="nc" id="L30">public class login extends AppCompatActivity {</span>
+
+    private EditText eLoginEmail;
+    private EditText eLoginPassword;
+    private Button btnLogin;
+    private TextView tvRegisterHere;
+    private FirebaseAuth mAuth;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+<span class="nc" id="L42">        super.onCreate(savedInstanceState);</span>
+<span class="nc" id="L43">        setContentView(R.layout.activity_login);</span>
+
+<span class="nc" id="L45">        radioGroup = findViewById(R.id.radioGroup1);//binds all input information to allow spave for image view</span>
+
+<span class="nc" id="L47">        eLoginEmail=findViewById(R.id.etLoginEmail);//</span>
+<span class="nc" id="L48">        eLoginPassword=findViewById(R.id.etLoginPass);</span>
+<span class="nc" id="L49">        tvRegisterHere=findViewById(R.id.tvRegisterHere);</span>
+<span class="nc" id="L50">        btnLogin=findViewById(R.id.btnLogin);</span>
+
+
+<span class="nc" id="L53">        mAuth=FirebaseAuth.getInstance();</span>
+
+<span class="nc" id="L55">        btnLogin.setOnClickListener(view -&gt;{</span>
+<span class="nc" id="L56">            loginUser();</span>
+<span class="nc" id="L57">        });</span>
+<span class="nc" id="L58">        tvRegisterHere.setOnClickListener(view -&gt;{</span>
+<span class="nc" id="L59">            startActivity(new Intent(login.this,register.class));</span>
+<span class="nc" id="L60">        });</span>
+
+<span class="nc" id="L62">        findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);</span>
+<span class="nc" id="L63">    }</span>
+
+    @Override
+    public void onBackPressed()
+    {
+<span class="nc" id="L68">    }</span>
+
+    private void loginUser() {
+<span class="nc" id="L71">        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);</span>
+<span class="nc" id="L72">        int radioID = radioGroup.getCheckedRadioButtonId();//see if user is student or teacher</span>
+<span class="nc" id="L73">        radioButton = findViewById(radioID);//user type found</span>
+
+<span class="nc" id="L75">        String occupation = radioButton.getText().toString();//Subject to change</span>
+
+<span class="nc" id="L77">        String email=eLoginEmail.getText().toString();</span>
+<span class="nc" id="L78">        String password=eLoginPassword.getText().toString();</span>
+
+        //checking email and input
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if(TextUtils.isEmpty(email)){</span>
+            //the elseif caters for when there no email information
+<span class="nc" id="L83">            eLoginEmail.setError(&quot;Email cannot be empty&quot;);</span>
+<span class="nc" id="L84">            eLoginEmail.requestFocus();//focuses on the email interface waiting for input from user</span>
+        }//the elseif caters for when there no password information
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        else if(TextUtils.isEmpty(password)){</span>
+<span class="nc" id="L87">            eLoginPassword.setError(&quot;Password cannot be empty&quot;);</span>
+<span class="nc" id="L88">            eLoginPassword.requestFocus();//focuses on the password state waiting for user to provide such of password</span>
+        }else{
+<span class="nc" id="L90">            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener&lt;AuthResult&gt;() {</span>
+                @Override
+                public void onComplete(@NonNull Task&lt;AuthResult&gt; task) {
+<span class="nc bnc" id="L93" title="All 2 branches missed.">                    if(task.isSuccessful()){</span>
+<span class="nc" id="L94">                        FirebaseDatabase.getInstance().getReference()</span>
+<span class="nc" id="L95">                                .child(occupation)</span>
+<span class="nc" id="L96">                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())</span>
+<span class="nc" id="L97">                                .child(&quot;email&quot;).addValueEventListener(new ValueEventListener() {</span>
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String confirmemail;
+                                try {
+<span class="nc" id="L102">                                    confirmemail = snapshot.getValue(String.class).toString().trim();</span>
+                                }
+<span class="nc" id="L104">                                catch(Exception e) {</span>
+<span class="nc" id="L105">                                    confirmemail=&quot;&quot;;</span>
+<span class="nc" id="L106">                                }</span>
+
+<span class="nc bnc" id="L108" title="All 2 branches missed.">                                if(email.equals(confirmemail)){</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">                                    if(occupation.equals(&quot;Teacher&quot;)){</span>
+<span class="nc" id="L110">                                        startActivity(new Intent(login.this,TeacherCourses.class).putExtra(&quot;activity&quot;,&quot;login&quot;));//Go to the teachers home page once approved</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">                                    }else if(occupation.equals(&quot;Student&quot;)){</span>
+<span class="nc" id="L112">                                        startActivity(new Intent(login.this,Student_Dashboard.class));//Go the student homepage once validated</span>
+                                    }
+                                }else{
+<span class="nc" id="L115">                                    Toast.makeText(login.this,&quot;No &quot;+occupation+&quot;'s account with those details&quot;,Toast.LENGTH_SHORT).show();</span>
+
+                                }
+
+<span class="nc" id="L119">                            }</span>
+//my comment on 20220512
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+<span class="nc" id="L124">                            }</span>
+                        });
+                    }else{
+<span class="nc" id="L127">                        Toast.makeText(login.this,&quot;Log in error: &quot;+task.getException().getMessage(),Toast.LENGTH_SHORT).show();//it is too show errors and error types should they arise</span>
+                    }
+<span class="nc" id="L129">                }</span>
+            });
+        }
+<span class="nc" id="L132">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -24,9 +24,11 @@ public class StudentPlayQuiz extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(null);
 
+        String coursecode=getIntent().getStringExtra("course_code");
+
         FirebaseRecyclerOptions<quizModel> options =
                 new FirebaseRecyclerOptions.Builder<quizModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Questions").child("COMS1016").child("QuizOne"), quizModel.class)//.orderByChild("modName").equalTo("APHY8010")
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Questions").child(coursecode).child("QuizOne"), quizModel.class)//.orderByChild("modName").equalTo("APHY8010")
                         .build();
         recyclerView.getRecycledViewPool().clear();
         mainAdapter = new QuizAdapter(options,getApplicationContext(),"");
