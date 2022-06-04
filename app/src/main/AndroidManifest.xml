@@ -14,12 +14,7 @@
         android:theme="@style/Theme.Login">
         <activity
             android:name=".StudentPlayQuiz"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false" >
         </activity>
         <activity
             android:name=".createQuiz"
@@ -55,7 +50,13 @@
             android:exported="false" />
         <activity
             android:name=".login"
-            android:exported="false"></activity>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
