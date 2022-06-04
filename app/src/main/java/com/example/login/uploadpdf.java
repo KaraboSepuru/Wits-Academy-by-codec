@@ -7,8 +7,8 @@ public class uploadpdf {
 
     }
     public uploadpdf(String pdfname,String pdfurl){
-        this.pdfname=pdfname;
-        this.pdfurl=pdfurl;
+        setPdfname(pdfname);
+        setPdfurl(pdfurl);
     }
 
     public String getPdfname(){
@@ -17,10 +17,10 @@ public class uploadpdf {
     public String getPdfurl(){
         return pdfurl;
     }
-    public void setPdfname(String pdfname){
+    private void setPdfname(String pdfname){
         this.pdfname=pdfname;
     }
-    public void setPdfurl(String pdfurl){
+    private void setPdfurl(String pdfurl){
         this.pdfurl=pdfurl;
     }
 }
