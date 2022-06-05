@@ -13,18 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Login">
         <activity
+            android:name=".checkAnnouncements"
+            android:exported="false" />
+        <activity
             android:name=".announcement"
             android:exported="false" />
         <activity
             android:name=".StudentPlayQuiz"
-            android:exported="false" >
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".createQuiz"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".TeacherCourse_content"
             android:exported="false" />
@@ -49,8 +48,9 @@
         <activity
             android:name=".StudentCourse_content"
             android:exported="false" />
-        <activity android:name=".studentStartQuiz"
-            android:exported="false"/>
+        <activity
+            android:name=".studentStartQuiz"
+            android:exported="false" />
         <activity
             android:name=".register"
             android:exported="false" />

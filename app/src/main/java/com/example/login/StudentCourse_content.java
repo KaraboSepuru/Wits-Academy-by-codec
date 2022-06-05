@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class StudentCourse_content extends AppCompatActivity {
     TextView coursename,coursedesc,courseinst,coursecode;
-    Button subscribe,gotocourses, btn_take_quiz;
+    Button subscribe,gotocourses, btn_take_quiz, btn_ann;
     Boolean subscribed=false;
     int ratingNum;
     String coursename1,courseinstructor,coursecode1,courseid;
@@ -43,6 +43,7 @@ public class StudentCourse_content extends AppCompatActivity {
         subscribe=findViewById(R.id.subscribe);
         gotocourses=findViewById(R.id.enrolled_courses);
         btn_take_quiz = findViewById(R.id.btn_take_quiz);
+        btn_ann = findViewById(R.id.btn_announcements);
 
 
         coursename1=getIntent().getStringExtra("course_name");
@@ -118,6 +119,14 @@ public class StudentCourse_content extends AppCompatActivity {
                 Intent intent=new Intent(StudentCourse_content.this, StudentPlayQuiz.class);
                 intent.putExtra("course_code",coursename1) ;
             startActivity(intent);
+            }
+        });
+        btn_ann.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(StudentCourse_content.this, checkAnnouncements.class);
+                intent.putExtra("course_code",coursename1) ;
+                startActivity(intent);
             }
         });
 

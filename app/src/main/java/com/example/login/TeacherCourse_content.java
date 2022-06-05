@@ -66,6 +66,11 @@ public class TeacherCourse_content extends AppCompatActivity {
         goback=findViewById(R.id.go_back);
         announcement = findViewById(R.id.btnAnnouncement);
 
+        coursename1=getIntent().getStringExtra("course_name");
+        courseinstructor=getIntent().getStringExtra("course_teacher");
+        coursecode1=getIntent().getStringExtra("course_code");
+
+
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,14 +81,13 @@ public class TeacherCourse_content extends AppCompatActivity {
         announcement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(TeacherCourse_content.this,announcement.class));
+                Intent intent=new Intent(TeacherCourse_content.this, announcement.class);
+                intent.putExtra("course_code",coursename1);
+                startActivity(intent);
             }
         });
 
         
-        coursename1=getIntent().getStringExtra("course_name");
-        courseinstructor=getIntent().getStringExtra("course_teacher");
-        coursecode1=getIntent().getStringExtra("course_code");
 
         btn_add_quiz.setOnClickListener(new View.OnClickListener() {
             @Override
