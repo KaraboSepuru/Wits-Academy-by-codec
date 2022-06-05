@@ -2,12 +2,20 @@ package com.example.login;
 
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 public class moduleTest {
 
-    public module testing = new module("STAT2006","Mathematical Statistics 2","Mr Sergio Giavani", 2.0f);
+    private module testing;
+
+
+    @Before
+    public void setUp()
+    {
+        testing = new module("STAT2006","Mathematical Statistics 2","Mr Sergio Giavani", 2.0f);
+    }
 
     @Test
     public void testIsModCodCorrect(){
