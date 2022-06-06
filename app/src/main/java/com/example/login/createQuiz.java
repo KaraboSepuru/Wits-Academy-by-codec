@@ -57,7 +57,7 @@ public class createQuiz extends AppCompatActivity {
                 String option4 = addOpt4.getText().toString();//Adding the fourth option and ...
                 String qNumber = qNum.getText().toString();//the question number
                 String coursecode=getIntent().getStringExtra("course_code");
-                String quizName = getIntent().getStringExtra("quiz_name");
+               String quizName = getIntent().getStringExtra("quiz_name");
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Questions").child(coursecode).child(quizName).child(qNumber);
                 quizModel QuizQ = new quizModel(question, option1, option2, option3, option4, response);//Adding the quiz question to the database
                 databaseReference.setValue(QuizQ);

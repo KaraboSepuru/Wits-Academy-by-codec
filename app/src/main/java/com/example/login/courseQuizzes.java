@@ -12,6 +12,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.UUID;
+
 public class courseQuizzes extends AppCompatActivity {
     RecyclerView recyclerView;
     quizListAdapter mainAdapter;
@@ -25,14 +27,16 @@ public class courseQuizzes extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(null);
         String coursecode=getIntent().getStringExtra("course_code");
+        final String randomKey = UUID.randomUUID().toString();
         FirebaseRecyclerOptions<quizName> options =
                 new FirebaseRecyclerOptions.Builder<quizName>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("QuizNames").child(coursecode), quizName.class)
                         .build();
         recyclerView.getRecycledViewPool().clear();
-        mainAdapter = new quizListAdapter(options,getApplicationContext(),"");
+        mainAdapter = new quizListAdapter(options,getApplicationContext(),"", coursecode);
 
         recyclerView.setAdapter(mainAdapter);
+
     }
 
     @Override

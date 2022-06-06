@@ -30,10 +30,12 @@ public class quizListAdapter extends FirebaseRecyclerAdapter<quizName, quizListA
      */
     Context context;
     String which;
-    public quizListAdapter(@NonNull FirebaseRecyclerOptions<quizName> options, Context context, String which) {
+    String coursecode;
+    public quizListAdapter(@NonNull FirebaseRecyclerOptions<quizName> options, Context context, String which, String coursecode) {
         super(options);
         this.context=context;
         this.which=which;
+        this.coursecode=coursecode;
     }
     //private int count=0;
     @Override
@@ -41,6 +43,19 @@ public class quizListAdapter extends FirebaseRecyclerAdapter<quizName, quizListA
 
 
         holder.quizName.setText(model.getQuizname());
+        holder.quizName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //take you to Quiz_preview class
+                Intent intent = new Intent(context, Quiz_Preview.class);
+                intent.putExtra("course_code",coursecode );
+                intent.putExtra("quiz_name", model.getQuizname());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+
+            }
+        });
 
     }
 
