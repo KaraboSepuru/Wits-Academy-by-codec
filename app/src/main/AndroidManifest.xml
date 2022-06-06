@@ -3,6 +3,7 @@
     package="com.example.login">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,12 +13,61 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Login">
         <activity
-            android:name=".teacherLayout"
-            android:exported="false"
-            android:parentActivityName=".login"/>
+            android:name=".reply_question"
+            android:exported="false" >
+
+        </activity>
         <activity
-            android:name=".addModule"
+            android:name=".type_question"
+            android:exported="false" >
+
+        </activity>
+        <activity
+            android:name=".inside_question"
+            android:exported="false" >
+
+        </activity>
+        <activity
+            android:name=".Forum"
+            android:exported="false" >
+
+        </activity>
+        <activity
+            android:name=".StudentPlayQuiz"
+            android:exported="false" >
+
+        </activity>
+        <activity
+            android:name=".createQuiz"
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".TeacherCourse_content"
             android:exported="false" />
+        <activity
+            android:name=".TeacherAccount"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_New_Module"
+            android:exported="false" />
+        <activity
+            android:name=".TeacherCourses"
+            android:exported="false" />
+        <activity
+            android:name=".StudentAccount"
+            android:exported="false" />
+        <activity
+            android:name=".StudentCourses"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Dashboard"
+            android:exported="false" />
+        <activity
+            android:name=".StudentCourse_content"
+            android:exported="false" />
+        <activity android:name=".studentStartQuiz"
+            android:exported="false"/>
         <activity
             android:name=".register"
             android:exported="false" />
@@ -30,9 +80,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
     </application>
 
 </manifest>
