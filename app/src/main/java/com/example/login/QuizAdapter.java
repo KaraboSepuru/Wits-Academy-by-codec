@@ -55,6 +55,7 @@ public class QuizAdapter extends FirebaseRecyclerAdapter<quizModel, QuizAdapter.
                     Toast.makeText(context, "Your answer is correct!!", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(context, "WRONG", Toast.LENGTH_SHORT).show();
+
                 }
 
             }
@@ -116,6 +117,7 @@ public class QuizAdapter extends FirebaseRecyclerAdapter<quizModel, QuizAdapter.
 
     class myViewHolder extends RecyclerView.ViewHolder{
         TextView questionNumberTV,quetionTV;
+
         Button opt1Btn, opt2Btn, opt3Btn, opt4Btn;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);

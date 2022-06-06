@@ -41,11 +41,11 @@ public class Student_Dashboard extends AppCompatActivity {
                 case R.id.dashboard:
                     return true;
                 case R.id.student_courses:
-                    startActivity(new Intent(Student_Dashboard.this,StudentCourses.class).putExtra("activity","dashboard"));
+                    startActivity(new Intent(Student_Dashboard.this,StudentCourses.class).putExtra("activity","dashboard"));//leads to the students courses that they they subscribeed for
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.student_account:
-                    startActivity(new Intent(Student_Dashboard.this,StudentAccount.class).putExtra("activity","dashboard"));
+                    startActivity(new Intent(Student_Dashboard.this,StudentAccount.class).putExtra("activity","dashboard"));//Student details like login an password
                     overridePendingTransition(0,0);
                     return true;
             }
@@ -75,7 +75,7 @@ public class Student_Dashboard extends AppCompatActivity {
     }
 
     private void retriveallcourses() {
-
+        //Retrieving courses from the database
         FirebaseRecyclerOptions<module> options =
                 new FirebaseRecyclerOptions.Builder<module>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("All Courses"), module.class)//.orderByChild("modName").equalTo("APHY8010")

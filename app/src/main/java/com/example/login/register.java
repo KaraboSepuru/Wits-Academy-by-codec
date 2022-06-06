@@ -8,7 +8,8 @@ import androidx.annotation.NonNull;
         import android.os.Bundle;
         import android.text.TextUtils;
         import android.util.Patterns;
-        import android.widget.Button;
+import android.view.View;
+import android.widget.Button;
         import android.widget.EditText;
         import android.widget.RadioButton;
         import android.widget.RadioGroup;
@@ -49,7 +50,7 @@ public class register extends AppCompatActivity {
         tvLoginHere=findViewById(R.id.tvLoginHere);
         btnRegister=findViewById(R.id.btnRegister);
         mAuth=FirebaseAuth.getInstance();
-
+        findViewById(R.id.loading).setVisibility(View.INVISIBLE);
         //Implement the onClickListerner for the register button
         btnRegister.setOnClickListener(view ->{
             createUser();                                                                               //call function on Register button click
@@ -63,7 +64,7 @@ public class register extends AppCompatActivity {
 
     /*Create user function*/
     private void createUser() {
-
+        findViewById(R.id.loading).setVisibility(View.VISIBLE);//Showing the loadin button to show user that the system ins loading while they trying to create user in database
         //Get checked occupation, teacher or student to create account for
         int radioID = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioID);
