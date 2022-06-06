@@ -35,9 +35,10 @@ public class QuizAdapter extends FirebaseRecyclerAdapter<quizModel, QuizAdapter.
         this.context=context;
         this.which=which;
     }
-
+    //private int count=0;
     @Override
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull quizModel model) {
+
         holder.questionNumberTV.setText("Question");
         holder.quetionTV.setText(model.getQuestion());
         holder.opt1Btn.setText(model.getOpt1());

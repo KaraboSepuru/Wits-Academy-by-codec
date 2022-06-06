@@ -23,7 +23,15 @@
             android:exported="false"></activity>
         <activity
             android:name=".createQuiz"
-            android:exported="false"></activity>
+            android:exported="false"/>
+            android:name=".courseQuizzes"
+            android:exported="false" />
+        <activity
+            android:name=".addQuizWithName"
+            android:exported="false" />
+        <activity
+            android:name=".Quiz_Preview"
+            android:exported="false" />
         <activity
             android:name=".TeacherCourse_content"
             android:exported="false" />

@@ -43,8 +43,10 @@ public class TeacherCourse_content extends AppCompatActivity {
     TextView coursename,courseinst,refreshpage;
     EditText coursedesc, file_name;
     String coursename1,courseinstructor,coursecode1,courseid;
+
     Button uploadpdf,choosepdf,announcement;
-    Button updatedesc,goback, btn_add_file, btn_add_quiz, btn_upload, btn_choose_file;
+    Button updatedesc,goback, btn_add_file, btn_add_quiz, btn_upload, btn_choose_file, listQuizzes;
+
     RecyclerView recyclerView;
     All_pdf_adapter mainAdapter;
     ConstraintLayout cl_content;
@@ -61,6 +63,7 @@ public class TeacherCourse_content extends AppCompatActivity {
         coursedesc=findViewById(R.id.edit_course_desc);
         btn_add_file = findViewById(R.id.btn_add_file);
         btn_add_quiz = findViewById(R.id.btn_add_quiz);
+        listQuizzes= findViewById(R.id.viewQuizzes);
 //        uploadpdf=findViewById(R.id.btn_add_quiz);
         updatedesc=findViewById(R.id.update_description);
         goback=findViewById(R.id.go_back);
@@ -98,9 +101,19 @@ public class TeacherCourse_content extends AppCompatActivity {
             //Creating a quiz for the course
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(TeacherCourse_content.this, createQuiz.class);
+                Intent intent=new Intent(TeacherCourse_content.this, addQuizWithName.class);
                 intent.putExtra("course_code",coursename1);
                 startActivity(intent);
+            }
+        });
+
+        listQuizzes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TeacherCourse_content.this, courseQuizzes.class);
+                intent.putExtra("course_code",coursename1);
+                startActivity(intent);
+               // startActivity(new Intent(TeacherCourse_content.this,TeacherCourses.class));
             }
         });
 
@@ -322,10 +335,6 @@ public class TeacherCourse_content extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         mainAdapter.startListening();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user==null){
-            startActivity(new Intent(TeacherCourse_content.this,login.class));
-        }
     }
     @Override
     protected void onStop() {

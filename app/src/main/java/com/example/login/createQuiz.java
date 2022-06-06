@@ -2,6 +2,7 @@ package com.example.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,11 +17,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class createQuiz extends AppCompatActivity {
     EditText addQuestion, addResponse, addOpt1, addOpt2, addOpt3, addOpt4, qNum;
    // public ArrayList<quizModel>  quizModelArrayList;
-    Button addToList;
+    Button addToList, closeCreateQuizActivity;
 
 
     @Override
@@ -36,6 +38,7 @@ public class createQuiz extends AppCompatActivity {
         addOpt4 = findViewById(R.id.createOption4);
         addToList = findViewById(R.id.addQuestionBtn);
         qNum = findViewById(R.id.qNum);
+        closeCreateQuizActivity = findViewById(R.id.closeCreateCourseActivity);
 
 
        // quizModelArrayList = new ArrayList<>();
@@ -46,7 +49,7 @@ public class createQuiz extends AppCompatActivity {
             public void onClick(View view) {
                 String question =addQuestion.getText().toString();//The quiz question that will be asked in the quiz
                 String response = addResponse.getText().toString();//the answer to the quiz questoin
-                System.out.println(response);
+                //System.out.println(response);
                 //The 4 lines below are the quiz options that the user will see when the quiz runs
                 String option1 = addOpt1.getText().toString();//getting the first option and storing it in a string so it can be saved into the database
                 String option2 = addOpt2.getText().toString();//Adding the second option and ...
@@ -54,9 +57,15 @@ public class createQuiz extends AppCompatActivity {
                 String option4 = addOpt4.getText().toString();//Adding the fourth option and ...
                 String qNumber = qNum.getText().toString();//the question number
                 String coursecode=getIntent().getStringExtra("course_code");
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Questions").child(coursecode).child("QuizOne").child(qNumber);
+               String quizName = getIntent().getStringExtra("quiz_name");
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Questions").child(coursecode).child(quizName).child(qNumber);
                 quizModel QuizQ = new quizModel(question, option1, option2, option3, option4, response);//Adding the quiz question to the database
                 databaseReference.setValue(QuizQ);
+                final String randomKey= UUID.randomUUID().toString();
+                DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference().child("QuizNames").child(coursecode)
+                .child(randomKey);
+                quizName quizName1 = new quizName(quizName);
+                databaseReference1.setValue(quizName1);
 
                 //the lines below are clearing the textview which were collecting the previous quiz data
                 addOpt1.getText().clear();
@@ -69,6 +78,14 @@ public class createQuiz extends AppCompatActivity {
                 Toast.makeText(createQuiz.this,"Question "+ qNumber +" Has been added",Toast.LENGTH_SHORT).show();//Questoin succesfully added
 
 
+            }
+        });
+
+        closeCreateQuizActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(createQuiz.this, TeacherCourse_content.class);
+                startActivity(intent);
             }
         });
 
