@@ -18,6 +18,7 @@ public class TeacherCourses extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     RecyclerView recyclerView;
     Adapter_View_AllCourses mainAdapter;
+    //TODO mess with the icon thing for the recourses over here
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -43,6 +43,7 @@ public class TeacherCourse_content extends AppCompatActivity {
     TextView coursename,courseinst,refreshpage;
     EditText coursedesc, file_name;
     String coursename1,courseinstructor,coursecode1,courseid;
+    Button uploadpdf,choosepdf,announcement;
     Button updatedesc,goback, btn_add_file, btn_add_quiz, btn_upload, btn_choose_file;
     RecyclerView recyclerView;
     All_pdf_adapter mainAdapter;
@@ -63,6 +64,12 @@ public class TeacherCourse_content extends AppCompatActivity {
 //        uploadpdf=findViewById(R.id.btn_add_quiz);
         updatedesc=findViewById(R.id.update_description);
         goback=findViewById(R.id.go_back);
+        announcement = findViewById(R.id.btnAnnouncement);
+
+        coursename1=getIntent().getStringExtra("course_name");
+        courseinstructor=getIntent().getStringExtra("course_teacher");
+        coursecode1=getIntent().getStringExtra("course_code");
+
 
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,9 +78,23 @@ public class TeacherCourse_content extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         coursename1=getIntent().getStringExtra("course_name");//one of the teachers courses
         courseinstructor=getIntent().getStringExtra("course_teacher");//the name of the imnstructor thats tecahing the courses
         coursecode1=getIntent().getStringExtra("course_code");//course code set by instructor
+=======
+        announcement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(TeacherCourse_content.this, announcement.class);
+                intent.putExtra("course_code",coursecode1);
+                intent.putExtra("course_name",coursename1);
+                startActivity(intent);
+            }
+        });
+
+        
+>>>>>>> morake
 
         btn_add_quiz.setOnClickListener(new View.OnClickListener() {
             //Creating a quiz for the course
