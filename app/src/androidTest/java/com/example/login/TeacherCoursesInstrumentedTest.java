@@ -13,6 +13,9 @@ import androidx.test.espresso.ViewAssertion;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -38,6 +41,17 @@ public class TeacherCoursesInstrumentedTest {
                 // by checking if the view recycler_teacher_courses is null
                 Assert.assertNotNull(view);
 
+            }
+        });
+    }
+
+    @Test
+    public void testOnStart(){
+        scenario.onActivity(new ActivityScenario.ActivityAction<TeacherCourses>() {
+            @Override
+            public void perform(TeacherCourses activity) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                Assert.assertNotNull(user);
             }
         });
     }

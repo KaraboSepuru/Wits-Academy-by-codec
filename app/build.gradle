@@ -4,6 +4,7 @@ plugins {
     id 'jacoco'
 }
 
+apply plugin: 'jacoco'
 android {
     compileSdk 32
 
@@ -31,6 +32,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+
 
 dependencies {
 
