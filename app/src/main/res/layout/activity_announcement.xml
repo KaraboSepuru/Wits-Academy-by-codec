@@ -41,7 +41,7 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Below you can view your previous posts"
+        android:text="Below you can view your most recent posts"
         android:textColor="@color/teal_700"
         android:textSize="18sp"
         android:layout_marginTop="10dp"

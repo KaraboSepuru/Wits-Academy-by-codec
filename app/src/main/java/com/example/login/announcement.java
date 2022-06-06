@@ -2,9 +2,14 @@ package com.example.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +44,12 @@ public class announcement extends AppCompatActivity {
         postMessage = findViewById(R.id.postTxt);
         String coursename =getIntent().getStringExtra("course_name");
 
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("My Notification", "My Notification name", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
 
         btnPost.setOnClickListener(new View.OnClickListener() {//this is the button for pushing the specified post to the database
             @Override
@@ -50,6 +61,16 @@ public class announcement extends AppCompatActivity {
                 database.child(coursecode).setValue(obj);
                 Toast.makeText(announcement.this,"Announcement made",Toast.LENGTH_SHORT).show();
                 postMessage.setText("");
+
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(announcement.this, "My Notification");
+                builder.setContentTitle("Notification from " + coursename);
+                builder.setContentText(obj.getPostMessage());
+                builder.setSmallIcon(R.drawable.textgram1649550175);
+                builder.setAutoCancel(true);
+
+                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(announcement.this);
+                managerCompat.notify(1,builder.build());
             }
         });
 

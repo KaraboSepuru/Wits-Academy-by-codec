@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +29,9 @@ public class checkAnnouncements extends AppCompatActivity {
     RecyclerView recyclerView;
     postAdapter postadapter;
     ArrayList<post> list;
+    String prev="";
+    String curr ="";
+    boolean guard = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +59,24 @@ public class checkAnnouncements extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     post posted = dataSnapshot.getValue(post.class);
                     list.add(posted);
+                    curr = posted.getPostMessage();
                 }
                 postadapter.notifyDataSetChanged();
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+        if(curr.equals(prev) || guard){
+            guard = false;
+            prev = curr;
+            Toast.makeText(this, "1111", Toast.LENGTH_SHORT).show();
 
+        }else{
+            Toast.makeText(this, "2222", Toast.LENGTH_SHORT).show();
+        }
     }
 }

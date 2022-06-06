@@ -126,6 +126,7 @@ public class StudentCourse_content extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(StudentCourse_content.this, checkAnnouncements.class);
                 intent.putExtra("course_code",coursename1) ;
+                intent.putExtra("course_name",coursename1);
                 startActivity(intent);
             }
         });
