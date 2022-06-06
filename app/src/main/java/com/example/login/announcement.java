@@ -37,6 +37,7 @@ public class announcement extends AppCompatActivity {
         setContentView(R.layout.activity_announcement);
         btnPost = findViewById(R.id.btnPost);
         postMessage = findViewById(R.id.postTxt);
+        String coursename =getIntent().getStringExtra("course_name");
 
 
         btnPost.setOnClickListener(new View.OnClickListener() {//this is the button for pushing the specified post to the database
@@ -45,7 +46,7 @@ public class announcement extends AppCompatActivity {
                 String inp = postMessage.getText().toString().trim();
                 post obj = new post(inp);
                 String coursecode=getIntent().getStringExtra("course_code");
-                database = FirebaseDatabase.getInstance().getReference().child("Announcements");
+                database = FirebaseDatabase.getInstance().getReference().child(coursename);
                 database.child(coursecode).setValue(obj);
                 Toast.makeText(announcement.this,"Announcement made",Toast.LENGTH_SHORT).show();
                 postMessage.setText("");
@@ -55,8 +56,7 @@ public class announcement extends AppCompatActivity {
         //The code below calls all posts on the database to be shown on the screen as previous posts
 
         recyclerView = findViewById(R.id.recAnnounce1);
-        String coursename =getIntent().getStringExtra("course_name");
-        database = FirebaseDatabase.getInstance().getReference("Announcements");
+        database = FirebaseDatabase.getInstance().getReference(coursename);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

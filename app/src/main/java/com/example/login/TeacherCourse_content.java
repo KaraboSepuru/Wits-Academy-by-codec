@@ -82,7 +82,8 @@ public class TeacherCourse_content extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(TeacherCourse_content.this, announcement.class);
-                intent.putExtra("course_code",coursename1);
+                intent.putExtra("course_code",coursecode1);
+                intent.putExtra("course_name",coursename1);
                 startActivity(intent);
             }
         });

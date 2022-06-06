@@ -39,7 +39,7 @@ public class checkAnnouncements extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recAnnounce);
         String coursename =getIntent().getStringExtra("course_name");
-        database = FirebaseDatabase.getInstance().getReference("Announcements");
+        database = FirebaseDatabase.getInstance().getReference(coursename);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
