@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class quizModelTest extends TestCase {
-    public quizModel testing_quizModel = new quizModel("What is CGV", "A", "B", "C", "D", " A");
+    public quizModel testing_quizModel = new quizModel("What is CGV", "A", "B", "C", "D", "A");
     @Test
     public void testquizModela() {
         Assert.assertEquals(testing_quizModel.getQuestion(),"What is CGV");
