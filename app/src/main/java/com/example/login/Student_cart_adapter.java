@@ -40,8 +40,8 @@ public class Student_cart_adapter extends FirebaseRecyclerAdapter<module, Studen
         holder.ratingBar.setRating(model.getRatingNum());
 
         Random rand = new Random();
-        int randomNum = rand.nextInt((7 - 0) + 1) + 0;
-
+        int randomNum = rand.nextInt((7 - 0) + 1) + 0;//generating a random index
+        //the switch case below generates a random photo to a attach to a certain course
         switch (randomNum){
             case 0:
                 holder.imageView.setImageResource(R.drawable.blue);
@@ -99,11 +99,11 @@ public class Student_cart_adapter extends FirebaseRecyclerAdapter<module, Studen
             super(itemView);
 
 
-            ratingBar = (RatingBar)itemView.findViewById(R.id.ratingBar);
-            name = (TextView)itemView.findViewById(R.id.nametext2);
-            course = (TextView)itemView.findViewById(R.id.coursetext2);
-            email = (TextView)itemView.findViewById(R.id.emailtext2);
-            imageView=(ImageView)itemView.findViewById(R.id.image_view);
+            ratingBar = (RatingBar)itemView.findViewById(R.id.ratingBar);//course rating bar
+            name = (TextView)itemView.findViewById(R.id.nametext2);//course coordinator name
+            course = (TextView)itemView.findViewById(R.id.coursetext2);//course name and code
+            email = (TextView)itemView.findViewById(R.id.emailtext2);//course cordinator mail
+            imageView=(ImageView)itemView.findViewById(R.id.image_view);// the random image for interface
         }
     }
 }

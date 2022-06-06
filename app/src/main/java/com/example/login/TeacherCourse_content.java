@@ -71,11 +71,12 @@ public class TeacherCourse_content extends AppCompatActivity {
             }
         });
 
-        coursename1=getIntent().getStringExtra("course_name");
-        courseinstructor=getIntent().getStringExtra("course_teacher");
-        coursecode1=getIntent().getStringExtra("course_code");
+        coursename1=getIntent().getStringExtra("course_name");//one of the teachers courses
+        courseinstructor=getIntent().getStringExtra("course_teacher");//the name of the imnstructor thats tecahing the courses
+        coursecode1=getIntent().getStringExtra("course_code");//course code set by instructor
 
         btn_add_quiz.setOnClickListener(new View.OnClickListener() {
+            //Creating a quiz for the course
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(TeacherCourse_content.this, createQuiz.class);
@@ -157,7 +158,7 @@ public class TeacherCourse_content extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toast.makeText(TeacherCourse_content.this, "Successfully updated course", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TeacherCourse_content.this, "Successfully updated course", Toast.LENGTH_SHORT).show();//message diplayed whem successully changed discription
                         }
                     });
         }else{
