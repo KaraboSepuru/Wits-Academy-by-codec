@@ -78,11 +78,11 @@ public class TeacherCourse_content extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
+
         coursename1=getIntent().getStringExtra("course_name");//one of the teachers courses
         courseinstructor=getIntent().getStringExtra("course_teacher");//the name of the imnstructor thats tecahing the courses
         coursecode1=getIntent().getStringExtra("course_code");//course code set by instructor
-=======
+
         announcement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,8 +93,6 @@ public class TeacherCourse_content extends AppCompatActivity {
             }
         });
 
-        
->>>>>>> morake
 
         btn_add_quiz.setOnClickListener(new View.OnClickListener() {
             //Creating a quiz for the course
