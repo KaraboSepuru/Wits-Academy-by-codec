@@ -19,6 +19,18 @@
             android:name=".announcement"
             android:exported="false" />
         <activity
+            android:name=".Forum"
+            android:exported="false" />
+        <activity android:name=".type_question"
+            android:exported="false"/>
+        <activity android:name=".reply_question"
+            android:exported="false"/>
+        <activity android:name=".inside_question"
+            android:exported="false"/>
+        <activity
+            android:name=".courseQuizzes"
+            android:exported="false" />
+        <activity
             android:name=".StudentPlayQuiz"
             android:exported="false"></activity>
         <activity

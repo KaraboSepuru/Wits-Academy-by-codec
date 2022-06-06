@@ -174,7 +174,7 @@
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:paddingBottom="16dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
@@ -182,10 +182,18 @@
 
         <Button
             android:id="@+id/enrolled_courses"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@color/teal_200"
             android:text="Go to My Courses"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/enrolled_courses_forum"
+            android:layout_width="150dp"
+            android:layout_marginLeft="70dp"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_200"
+            android:text="Forum"
             android:textStyle="bold" />
     </LinearLayout>
 <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->

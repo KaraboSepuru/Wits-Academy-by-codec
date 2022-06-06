@@ -45,7 +45,7 @@ public class TeacherCourse_content extends AppCompatActivity {
     String coursename1,courseinstructor,coursecode1,courseid;
 
     Button uploadpdf,choosepdf,announcement;
-    Button updatedesc,goback, btn_add_file, btn_add_quiz, btn_upload, btn_choose_file, listQuizzes;
+    Button updatedesc,goback, btn_add_file, btn_add_quiz, btn_upload, btn_choose_file, listQuizzes, btn_go_to_forum;
 
     RecyclerView recyclerView;
     All_pdf_adapter mainAdapter;
@@ -68,6 +68,8 @@ public class TeacherCourse_content extends AppCompatActivity {
         updatedesc=findViewById(R.id.update_description);
         goback=findViewById(R.id.go_back);
         announcement = findViewById(R.id.btnAnnouncement);
+        btn_go_to_forum=findViewById(R.id.btn_go_to_forum);
+
 
         coursename1=getIntent().getStringExtra("course_name");
         courseinstructor=getIntent().getStringExtra("course_teacher");
@@ -117,6 +119,17 @@ public class TeacherCourse_content extends AppCompatActivity {
             }
         });
 
+        btn_go_to_forum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(TeacherCourse_content.this,Forum.class);
+                intent.putExtra("course_code",coursecode1);
+                intent.putExtra("course_name",coursename1);
+                intent.putExtra("course_teacher",courseinstructor);
+                intent.putExtra("identifier","teacher");
+                startActivity(intent);
+            }
+        });
 
 
 
