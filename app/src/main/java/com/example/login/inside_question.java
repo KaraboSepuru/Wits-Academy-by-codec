@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class inside_question extends AppCompatActivity {
@@ -32,11 +33,25 @@ public class inside_question extends AppCompatActivity {
         String emailcontent=getIntent().getStringExtra("email");
         String coursecode=getIntent().getStringExtra("course_code");
 
+        String coursename=getIntent().getStringExtra("course_name");
+        String teacher=getIntent().getStringExtra("course_teacher");
+        //String courseid=getIntent().getStringExtra("course_id");
+        String identifier=getIntent().getStringExtra("identifier");
+
         go_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String whichactivity=null;
+                if(getIntent().getStringExtra("dashboard_or_mycourses")!=null){
+                    whichactivity=getIntent().getStringExtra("dashboard_or_mycourses");
+                }
                 Intent intent=new Intent(inside_question.this,Forum.class);
                 intent.putExtra("course_code",coursecode);
+                intent.putExtra("course_name",coursename);
+                intent.putExtra("course_teacher",teacher);
+                intent.putExtra("course_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                intent.putExtra("identifier",identifier);
+                intent.putExtra("identifier",whichactivity);
                 startActivity(intent);
             }
         });
@@ -59,11 +74,22 @@ public class inside_question extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String whichactivity=null;
+                if(getIntent().getStringExtra("dashboard_or_mycourses")!=null){
+                    whichactivity=getIntent().getStringExtra("dashboard_or_mycourses");
+                }
+
                 Intent intent=new Intent(inside_question.this,reply_question.class);
                 intent.putExtra("course_code",coursecode);
                 intent.putExtra("question",questioncontent);
                 intent.putExtra("email",emailcontent);
                 intent.putExtra("heading",headingcontent);
+                intent.putExtra("course_code",coursecode);
+                intent.putExtra("course_name",coursename);
+                intent.putExtra("course_teacher",teacher);
+                intent.putExtra("course_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                intent.putExtra("identifier",identifier);
+                intent.putExtra("dashboard_or_mycourses",whichactivity);
 
                 startActivity(intent);
             }

@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class StudentCourse_content extends AppCompatActivity {
     TextView coursename,coursedesc,courseinst,coursecode;
-    Button subscribe,gotocourses, btn_take_quiz;
+    Button subscribe,gotocourses, btn_take_quiz, btn_ann,btn_forum;
     Boolean subscribed=false;
     int ratingNum;
     String coursename1,courseinstructor,coursecode1,courseid;
@@ -43,6 +43,8 @@ public class StudentCourse_content extends AppCompatActivity {
         subscribe=findViewById(R.id.subscribe);
         gotocourses=findViewById(R.id.enrolled_courses);
         btn_take_quiz = findViewById(R.id.btn_take_quiz);
+        btn_ann = findViewById(R.id.btn_announcements);
+        btn_forum=findViewById(R.id.enrolled_courses_forum);
 
 
         coursename1=getIntent().getStringExtra("course_name");
@@ -118,6 +120,21 @@ public class StudentCourse_content extends AppCompatActivity {
                 Intent intent=new Intent(StudentCourse_content.this, StudentPlayQuiz.class);
                 intent.putExtra("course_code",coursename1) ;
             startActivity(intent);
+            }
+        });
+
+        btn_forum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String whichactivity=getIntent().getStringExtra("dashboard_or_mycourses");
+                Intent intent=new Intent(StudentCourse_content.this,Forum.class);
+                intent.putExtra("course_code",courseid);
+                intent.putExtra("course_code",coursecode1);
+                intent.putExtra("course_name",coursename1);
+                intent.putExtra("course_teacher",courseinstructor);
+                intent.putExtra("identifier","student");
+                intent.putExtra("dashboard_or_mycourses",whichactivity);
+                startActivity(intent);
             }
         });
 

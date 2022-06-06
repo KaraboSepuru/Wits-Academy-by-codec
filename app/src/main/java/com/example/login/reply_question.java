@@ -31,15 +31,26 @@ public class reply_question extends AppCompatActivity {
         String headingcontent=getIntent().getStringExtra("heading");
         String emailcontent=getIntent().getStringExtra("email");
         String coursecode=getIntent().getStringExtra("course_code");
+        String coursename=getIntent().getStringExtra("course_name");
+        String teacher=getIntent().getStringExtra("course_teacher");
+        String identifier=getIntent().getStringExtra("identifier");
 
         submit_reply_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String whichactivity=null;
+                if(getIntent().getStringExtra("dashboard_or_mycourses")!=null){
+                    whichactivity=getIntent().getStringExtra("dashboard_or_mycourses");
+                }
                 Intent intent=new Intent(reply_question.this,inside_question.class);
                 intent.putExtra("question",questioncontent);
                 intent.putExtra("heading",headingcontent);
                 intent.putExtra("email",emailcontent);
                 intent.putExtra("course_code",coursecode);
+                intent.putExtra("coursename",coursename);
+                intent.putExtra("course_teacher",teacher);
+                intent.putExtra("identifier",identifier);
+                intent.putExtra("dashboard_or_mycourses",whichactivity);
                 startActivity(intent);
             }
         });

@@ -30,6 +30,10 @@ public class type_question extends AppCompatActivity {
         go_back=findViewById(R.id.question_go_back);
 
         String coursecode=getIntent().getStringExtra("course_code");
+        String coursename=getIntent().getStringExtra("course_name");
+        String teacher=getIntent().getStringExtra("course_teacher");
+        String courseid=getIntent().getStringExtra("course_id");
+        String identifier=getIntent().getStringExtra("identifier");
         String email= FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
         submit_question.setOnClickListener(new View.OnClickListener() {
@@ -60,8 +64,17 @@ public class type_question extends AppCompatActivity {
         go_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String whichactivity=null;
+                if(getIntent().getStringExtra("dashboard_or_mycourses")!=null){
+                    whichactivity=getIntent().getStringExtra("dashboard_or_mycourses");
+                }
                 Intent intent=new Intent(type_question.this,Forum.class);
                 intent.putExtra("course_code",coursecode);
+                intent.putExtra("course_name",coursename);
+                intent.putExtra("course_teacher",teacher);
+                intent.putExtra("course_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                intent.putExtra("identifier",identifier);
+                intent.putExtra("dashboard_or_mycourses",whichactivity);
                 startActivity(intent);
             }
         });

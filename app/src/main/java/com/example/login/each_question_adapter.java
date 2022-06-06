@@ -23,10 +23,18 @@ public class each_question_adapter extends FirebaseRecyclerAdapter<model_posting
      */
     Context context;
     String coursecode;
-    public each_question_adapter(@NonNull FirebaseRecyclerOptions<model_posting_question> options, Context context, String coursecode) {
+    String coursename;
+    String courseinstructor;
+    String identifier;
+    String whichactivity;
+    public each_question_adapter(@NonNull FirebaseRecyclerOptions<model_posting_question> options, Context context, String coursecode,String coursename,String identifier,String courseinstrutor,String whichactivity) {
         super(options);
         this.context=context;
         this.coursecode=coursecode;
+        this.coursename=coursename;
+        this.courseinstructor=courseinstrutor;
+        this.identifier=identifier;
+        this.whichactivity=whichactivity;
     }
 
     @Override
@@ -43,6 +51,10 @@ public class each_question_adapter extends FirebaseRecyclerAdapter<model_posting
                 intent.putExtra("question",holder.question.getText().toString());
                 intent.putExtra("heading",holder.heading.getText().toString());
                 intent.putExtra("course_code",coursecode);
+                intent.putExtra("course_name",coursename);
+                intent.putExtra("course_teacher",courseinstructor);
+                intent.putExtra("identifier",identifier);
+                intent.putExtra("dashboard_or_mycourses",whichactivity);
                 context.startActivity(intent);
             }
         });

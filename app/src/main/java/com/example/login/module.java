@@ -4,9 +4,9 @@ import android.widget.RatingBar;
 
 public class module {
     private String modName, modCode, modTeacher;
+
     private float rating;
-// hello world
-//    ijfnvodfoiwdm
+
     module (){
 
 
@@ -21,6 +21,10 @@ public class module {
 
     public float getRatingNum(){return rating;}
 
+    public void setRatingNum(float num){
+        this.rating = num;
+    }
+
     public String getModName() {
         return modName;
     }
@@ -31,6 +35,10 @@ public class module {
 
     public String getModTeacher() {
         return modTeacher;
+    }
+    public float getRating()
+    {
+        return rating;
     }
 
     public void setModName(String modName) {
@@ -44,9 +52,4 @@ public class module {
     public void setModTeacher(String modTeacher) {
         this.modTeacher = modTeacher;
     }
-
-    public void setRatingNum(float num){
-        this.rating = num;
-    }
-
 }
