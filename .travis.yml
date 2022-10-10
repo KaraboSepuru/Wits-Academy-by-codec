@@ -30,6 +30,7 @@ env:
     - ANDROID_BUILD_TOOLS_VERSION=31.0.0
     - ANDROID_HOME=~/android-sdk
 
+
 before_install:
   - touch $HOME/.android/repositories.cfg
   - wget "https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip" -O commandlinetools.zip
